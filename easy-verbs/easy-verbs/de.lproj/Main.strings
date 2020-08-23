@@ -1,0 +1,90 @@
+
+/* Class = "UILabel"; text = "Welcome"; ObjectID = "0E5-Ei-KO5"; */
+"0E5-Ei-KO5.text" = "WILLKOMMEN";
+
+/* Class = "UILabel"; text = "BEST SCORE"; ObjectID = "0EM-rg-VAL"; */
+"0EM-rg-VAL.text" = "BESTES ERGEBNIS";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "27t-v4-2PY"; */
+"27t-v4-2PY.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "70G-Ea-kgg"; */
+"70G-Ea-kgg.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "VOCABULARY"; ObjectID = "7xW-rr-flX"; */
+"7xW-rr-flX.normalTitle" = "WORTSCHATZ";
+
+/* Class = "UIButton"; normalTitle = "Back to sign in"; ObjectID = "Cc0-e0-XkR"; */
+"Cc0-e0-XkR.normalTitle" = "Zurück zur anmeldung";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "GTP-7M-ya0"; */
+"GTP-7M-ya0.placeholder" = "Passwort";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "I2N-Vg-2p8"; */
+"I2N-Vg-2p8.normalTitle" = "NÄCHSTER";
+
+/* Class = "UIButton"; normalTitle = "FAVORITES"; ObjectID = "IiV-fT-SIA"; */
+"IiV-fT-SIA.normalTitle" = "FAVORITEN";
+
+/* Class = "UILabel"; text = "sign in to continue"; ObjectID = "QLc-Nf-A6f"; */
+"QLc-Nf-A6f.text" = "melden sie sich an, um fortzufahren";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "R6R-qa-FCA"; */
+"R6R-qa-FCA.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "PRONUN CIATION"; ObjectID = "VYo-0k-yP7"; */
+"VYo-0k-yP7.normalTitle" = "AUSSP RACHE";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "X1O-xa-idp"; */
+"X1O-xa-idp.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "YeY-gx-xgK"; */
+"YeY-gx-xgK.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Sign up"; ObjectID = "aSs-lg-VT8"; */
+"aSs-lg-VT8.text" = "Anmelden";
+
+/* Class = "UILabel"; text = "LABEL"; ObjectID = "bQh-qG-Zx6"; */
+"bQh-qG-Zx6.text" = "LABEL";
+
+/* Class = "UILabel"; text = "EASY VERBS"; ObjectID = "d9N-2t-BVf"; */
+"d9N-2t-BVf.text" = "EASY VERBS";
+
+/* Class = "UILabel"; text = "LABEL"; ObjectID = "dBE-Mx-bo4"; */
+"dBE-Mx-bo4.text" = "LABEL";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "dKN-gS-ecr"; */
+"dKN-gS-ecr.normalTitle" = "Button";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "eBP-z8-Gmk"; */
+"eBP-z8-Gmk.placeholder" = "Email";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "fPK-dy-BVN"; */
+"fPK-dy-BVN.placeholder" = "Passwort";
+
+/* Class = "UILabel"; text = "SCORE"; ObjectID = "gqc-bP-yx0"; */
+"gqc-bP-yx0.text" = "ERGEBNIS";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "mWL-bS-G1Z"; */
+"mWL-bS-G1Z.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "n2s-nO-9By"; */
+"n2s-nO-9By.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "TIME"; ObjectID = "nwl-7R-rKb"; */
+"nwl-7R-rKb.text" = "ZEIT";
+
+/* Class = "UILabel"; text = "to start learning"; ObjectID = "oEp-HC-DUz"; */
+"oEp-HC-DUz.text" = "anfangen zu lernen";
+
+/* Class = "UILabel"; text = "LABEL"; ObjectID = "psX-uK-uSL"; */
+"psX-uK-uSL.text" = "LABEL";
+
+/* Class = "UIButton"; normalTitle = "New here? Sing up"; ObjectID = "vIl-IX-gFg"; */
+"vIl-IX-gFg.normalTitle" = "Neu hier? Anmelden";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "yik-3c-k7A"; */
+"yik-3c-k7A.normalTitle" = "Button";
+
+/* Class = "UIButton"; normalTitle = "START"; ObjectID = "zbC-PA-bBu"; */
+"zbC-PA-bBu.normalTitle" = "START";
