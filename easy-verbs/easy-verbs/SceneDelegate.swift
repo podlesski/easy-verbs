@@ -10,16 +10,12 @@ import UIKit
 import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
     var window: UIWindow?
     
-    
-    
     func showAuthViewController() {
-      let storyboard = UIStoryboard(name: "Main", bundle: nil)
-      let newvc = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-        newvc.modalPresentationStyle = .fullScreen
-      self.window?.rootViewController?.present(newvc, animated: true, completion: nil)
+        let menuViewController = MenuViewController()
+        menuViewController.modalPresentationStyle = .fullScreen
+        self.window?.rootViewController?.present(menuViewController, animated: true, completion: nil)
     }
 
 

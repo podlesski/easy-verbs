@@ -18,42 +18,194 @@ class DetailsViewController: UIViewController {
     let db  = Firestore.firestore()
     let userID = Auth.auth().currentUser?.uid
     
-    
-    //MARK: -> Outlets
-    
-    @IBOutlet weak var infinitiveLabel: UILabel!
-    @IBOutlet weak var pastSimpleLabel: UILabel!
-    @IBOutlet weak var pastPerfectLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var pronunciationButton: UIButton!
-    @IBOutlet weak var favoritesButton: UIButton!
+    let stackView = UIStackView()
+    let infinitiveLabel = UILabel()
+    let pastSimpleLabel = UILabel()
+    let pastPerfectLabel = UILabel()
+    let descriptionLabel = UILabel()
+    let pronunciationButton = UIButton()
+    let favoritesButton = UIButton()
+    let backButton = UIButton()
     
     var favoritesVerbs = [String]()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-
     }
 
     var audioPlayer = AVAudioPlayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(named: "projectColor2")
         
-        pronunciationButton.createBorderWhiteColor()
-        pronunciationButton.highlightOfBorder()
-        favoritesButton.createBorderWhiteColor()
-        downloadFavoriteVerbs()
-        update()
+        setUpBackButton()
+        setUpBackButtonConstraint()
         
+        setUpDescriptionLabel()
+        setUpDescriptionLabelConstraint()
+        
+        setUpStackView()
+        setUpStackViewConstraint()
+        
+        setUpInfinitiveLabel()
+        setUpInfinitiveLabelConstraint()
+        
+        setUpPastSimpleLabelLabel()
+        setUpPastSimpleLabelLabelConstraint()
+        
+        setUpPastPerfectLabelLabel()
+        setUpPastPerfectLabelLabelConstraint()
+        
+        setUpPronunciationButton()
+        setUpPronunciationButtonConstraint()
+        
+        setUpFavoritesButton()
+        setUpFavoritesButtonConstraint()
 
+        downloadFavoriteVerbs()
     }
     
-    //MARK: -> Download Favorite Verbs
+    //MARK: -> Set Up Back Button
+    func setUpBackButton() {
+        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+        backButton.tintColor = UIColor(named: "projectColor")
+        backButton.backgroundColor = UIColor(named: "projectColor2")
+        backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
+        self.view.addSubview(backButton)
+    }
     
+    func setUpBackButtonConstraint() {
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        backButton.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive = true
+        backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
+        backButton.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 70).isActive = true
+    }
+    
+    //MARK: -> Set Up Description Label
+    func setUpDescriptionLabel() {
+        descriptionLabel.textColor = .white
+        descriptionLabel.font = UIFont(name: "Roboto-Regular", size: 17)
+        descriptionLabel.contentMode = .left
+        descriptionLabel.text = verbFromDelegate?.description
+        descriptionLabel.wordWrap()
+        self.view.addSubview(descriptionLabel)
+    }
+    
+    func setUpDescriptionLabelConstraint() {
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
+        descriptionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
+        descriptionLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        descriptionLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+    }
+    
+    //MARK: -> Set Up Stack View
+    func setUpStackView() {
+        stackView.axis = .vertical
+        stackView.spacing = 42
+        self.view.addSubview(stackView)
+    }
+    
+    func setUpStackViewConstraint() {
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
+        stackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 120).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -50).isActive = true
+    }
+    
+    //MARK: -> Set Up Infinitive Label
+    func setUpInfinitiveLabel() {
+        infinitiveLabel.textColor = UIColor(named: "projectColor")
+        infinitiveLabel.font = UIFont(name: "Roboto-Bold", size: 25)
+        infinitiveLabel.contentMode = .left
+        infinitiveLabel.text = verbFromDelegate?.infinitive
+        infinitiveLabel.wordWrap()
+        stackView.addArrangedSubview(infinitiveLabel)
+    }
+    
+    func setUpInfinitiveLabelConstraint() {
+        infinitiveLabel.translatesAutoresizingMaskIntoConstraints = false
+        infinitiveLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
+        infinitiveLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
+    }
+    
+    //MARK: -> Set Up Past Simple Label
+    func setUpPastSimpleLabelLabel() {
+        pastSimpleLabel.textColor = UIColor(named: "projectColor")
+        pastSimpleLabel.font = UIFont(name: "Roboto-Bold", size: 25)
+        pastSimpleLabel.contentMode = .left
+        pastSimpleLabel.text = verbFromDelegate?.pastSimple
+        pastSimpleLabel.wordWrap()
+        stackView.addArrangedSubview(pastSimpleLabel)
+    }
+    
+    func setUpPastSimpleLabelLabelConstraint() {
+        pastSimpleLabel.translatesAutoresizingMaskIntoConstraints = false
+        pastSimpleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
+        pastSimpleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
+    }
+    
+    //MARK: -> Set Up Past Perfect Label
+    func setUpPastPerfectLabelLabel() {
+        pastPerfectLabel.textColor = UIColor(named: "projectColor")
+        pastPerfectLabel.font = UIFont(name: "Roboto-Bold", size: 25)
+        pastPerfectLabel.contentMode = .left
+        pastPerfectLabel.text = verbFromDelegate?.pastParticiple
+        pastPerfectLabel.wordWrap()
+        stackView.addArrangedSubview(pastPerfectLabel)
+    }
+    
+    func setUpPastPerfectLabelLabelConstraint() {
+        pastPerfectLabel.translatesAutoresizingMaskIntoConstraints = false
+        pastPerfectLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
+        pastPerfectLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
+    }
+    
+    //MARK: -> Set Up Pronunciation Button
+    func setUpPronunciationButton() {
+        pronunciationButton.setTitle("PRONUN CIATION", for: .normal)
+        pronunciationButton.titleLabel?.font = UIFont(name: "Roboto-Bold", size: 17)
+        pronunciationButton.setTitleColor(.white, for: .normal)
+        pronunciationButton.titleLabel?.wordWrap()
+        pronunciationButton.addTarget(self, action: #selector(soundButton), for: .touchUpInside)
+        pronunciationButton.createBorderWhiteColor()
+        pronunciationButton.highlightOfBorder()
+        self.view.addSubview(pronunciationButton)
+    }
+    
+    func setUpPronunciationButtonConstraint() {
+        pronunciationButton.translatesAutoresizingMaskIntoConstraints = false
+        pronunciationButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        pronunciationButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        pronunciationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
+        pronunciationButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100).isActive = true
+    }
+    
+    //MARK: -> Set Up Favorites Button
+    func setUpFavoritesButton() {
+        favoritesButton.setTitle("FAVORITES", for: .normal)
+        favoritesButton.titleLabel?.font = UIFont(name: "Roboto-Bold", size: 17)
+        favoritesButton.setTitleColor(.white, for: .normal)
+        favoritesButton.titleLabel?.wordWrap()
+        favoritesButton.addTarget(self, action: #selector(addToFavoritesButton), for: .touchUpInside)
+        favoritesButton.createBorderWhiteColor()
+        self.view.addSubview(favoritesButton)
+    }
+    
+    func setUpFavoritesButtonConstraint() {
+        favoritesButton.translatesAutoresizingMaskIntoConstraints = false
+        favoritesButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        favoritesButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        favoritesButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
+        favoritesButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100).isActive = true
+    }
+
+    //MARK: -> Download Favorite Verbs
     func downloadFavoriteVerbs() {
         guard let user = userID else { return }
-        
         db.collection("users").whereField("uid", isEqualTo: user)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -95,8 +247,6 @@ class DetailsViewController: UIViewController {
         }
     }
     
-    
-    
     func deleteFavoriteVerbs() {
         guard let user = userID else { return }
         guard let verb = verbFromDelegate?.infinitive else { return }
@@ -133,8 +283,7 @@ class DetailsViewController: UIViewController {
     }
     
     //MARK: -> Buttons
-    
-    @IBAction func soundButton(_ sender: Any) {
+    @objc func soundButton(_ sender: Any) {
         guard let url = soundURL() else { return }
         do {
              audioPlayer = try AVAudioPlayer(contentsOf: url)
@@ -144,7 +293,7 @@ class DetailsViewController: UIViewController {
         }
     }
     
-    @IBAction func addToFavoritesButton(_ sender: Any) {
+    @objc func addToFavoritesButton(_ sender: Any) {
         if favoriteOrNot() {
             addFavoriteVerbs()
             repeatDownloadFavoriteVerbs()
@@ -178,18 +327,6 @@ class DetailsViewController: UIViewController {
         }
     }
     
-    func update() {
-        infinitiveLabel.text = verbFromDelegate?.infinitive
-        pastSimpleLabel.text = verbFromDelegate?.pastSimple
-        pastPerfectLabel.text = verbFromDelegate?.pastParticiple
-        descriptionLabel.text = verbFromDelegate?.description
-        
-        infinitiveLabel.wordWrap()
-        pastSimpleLabel.wordWrap()
-        pastPerfectLabel.wordWrap()
-        descriptionLabel.wordWrap()
-    }
-    
     func soundURL() -> URL? {
         guard let verb = verbFromDelegate,
             let path = Bundle.main.path(forResource: verb.infinitive, ofType: "mp3")
@@ -200,15 +337,13 @@ class DetailsViewController: UIViewController {
         return sound
     }
     
-    
-    @IBAction func backButton(_ sender: Any) {
+    @objc func backButtonDidTap(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
 }
 
 //MARK: -> Extensions
-
 extension UIButton {
     @objc func startHighlight(sender: UIButton) {
         self.layer.borderColor = UIColor(named:"projectColor")?.cgColor

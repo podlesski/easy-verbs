@@ -12,6 +12,10 @@ import Firebase
 
 class FavoritesVerbsViewController: UIViewController {
     
+    let backButton = UIButton()
+    let searchBar = UISearchBar()
+    let verbTableView = UITableView()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -32,27 +36,25 @@ class FavoritesVerbsViewController: UIViewController {
     var allVerbs = [IrregularVerb]()
     var userFavorite = [IrregularVerb]()
     var favoritesVerbs = [String]()
-
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var verbTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(named: "projectColor2")
         
-        verbTableView.delegate = self
-        verbTableView.dataSource = self
-        verbTableView.rowHeight = 100
-        verbTableView.separatorStyle = .none
-        searchBar.searchTextField.textColor = UIColor(named: "projectColor")
-        searchBar.delegate = self
-        searchBar.autocapitalizationType = .none
+        setUpBackButton()
+        setUpBackButtonConstraint()
+        
+        setUpSearchBar()
+        setUpSearchBarConstraint()
+        
+        setUpVerbTableView()
+        setUpVerbTableViewConstraint()
+        
         resaltsOfSearch = userFavorite
         
         
         // MARK: -> Loading JSON
-        
         let allVerbsRef = storage.child("easy_verbs.json")
-        
         allVerbsRef.getData(maxSize: Int64.max) { [weak self] (data, error) in
             guard error == nil else { return }
             guard let self = self else { return }
@@ -70,10 +72,61 @@ class FavoritesVerbsViewController: UIViewController {
                 print(error)
             }
         }
-
     }
     
+    //MARK: -> Set Up Back Button
+    func setUpBackButton() {
+        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+        backButton.tintColor = UIColor(named: "projectColor")
+        backButton.backgroundColor = UIColor(named: "projectColor2")
+        backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
+        self.view.addSubview(backButton)
+    }
     
+    func setUpBackButtonConstraint() {
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        backButton.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive = true
+        backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
+        backButton.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 70).isActive = true
+    }
+    
+    //MARK: -> Set Up Search Bar
+    func setUpSearchBar() {
+        searchBar.delegate = self
+        searchBar.searchTextField.textColor = UIColor(named: "projectColor")
+        searchBar.autocapitalizationType = .none
+        searchBar.barTintColor = UIColor(named: "projectColor2")
+        searchBar.backgroundColor = UIColor(named: "projectColor2")
+        searchBar.tintColor = UIColor(named: "projectColor")
+        self.view.addSubview(searchBar)
+    }
+    
+    func setUpSearchBarConstraint() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: self.backButton.trailingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        searchBar.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 25).isActive = true
+    }
+    
+    //MARK: -> Set Up Verb Table View
+    func setUpVerbTableView() {
+        verbTableView.delegate = self
+        verbTableView.dataSource = self
+        verbTableView.rowHeight = 100
+        verbTableView.separatorStyle = .none
+        verbTableView.backgroundColor = UIColor(named: "projectColor2")
+        self.view.addSubview(verbTableView)
+    }
+    
+    func setUpVerbTableViewConstraint() {
+        verbTableView.translatesAutoresizingMaskIntoConstraints = false
+        verbTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        verbTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        verbTableView.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor).isActive = true
+        verbTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? DetailsViewController,
@@ -123,8 +176,7 @@ class FavoritesVerbsViewController: UIViewController {
         }
     }
     
-    
-    @IBAction func backButton(_ sender: Any) {
+    @objc func backButtonDidTap(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -139,11 +191,7 @@ extension FavoritesVerbsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellID = "FavoritesVerbIDCell"
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? FavoritesVerbCell else { fatalError("Can't not find cell with \(cellID) at index \(indexPath)")
-        }
-        
+        let cell = FavoritesVerbCell()
         let verb = isSearchInProgress ? resaltsOfSearch[indexPath.row] : userFavorite[indexPath.row]
         cell.delegate = self
         cell.update(with: verb)
@@ -172,11 +220,11 @@ extension FavoritesVerbsViewController: UISearchBarDelegate {
 }
 
 extension FavoritesVerbsViewController: FavoritesVerbCellDelegate {
-    
     func didTapOnVerbButton(with verb: IrregularVerb?) {
-        
-        performSegue(withIdentifier: "FavoritesDetailsSegue", sender: verb)
-        
+        let newVC = DetailsViewController()
+        newVC.modalPresentationStyle = .fullScreen
+        newVC.verbFromDelegate = verb
+        self.present(newVC, animated: true, completion: nil)
     }
 }
 

@@ -20,5 +20,5 @@ class UniqueButton {
     }
 }
 
-let buttonsOnMenu = [UniqueButton(name: "VOCAB LUARY", side: 1, id: "AllVerbsViewController"), UniqueButton(name: "FAVO RITES", side: 2, id: "FavoritesVerbsViewController"), UniqueButton(name: "TRAI NING", side: 1, id: "LearningViewController"), UniqueButton(name: "HELP &INFO", side: 2, id: "HelpAndInfoViewController")]
+let buttonsOnMenu = [UniqueButton(name: "VOCAB LUARY", side: 1, id: "AllVerbsViewController"), UniqueButton(name: "FAVO RITES", side: 2, id: "FavoritesVerbsViewController"), UniqueButton(name: "TRAI NING", side: 1, id: "LearningViewController")]
 

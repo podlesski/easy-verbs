@@ -215,7 +215,6 @@
 		FF9496F0240DC06200F795DF /* FavoritesVerbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9496EF240DC06100F795DF /* FavoritesVerbCell.swift */; };
 		FFC4A8C923ECC5C00018521E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC4A8C823ECC5C00018521E /* SignUpViewController.swift */; };
 		FFC4A8CB23ECCA920018521E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFC4A8CA23ECCA920018521E /* GoogleService-Info.plist */; };
-		FFD04D022415243600FA46FA /* HelpAndInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD04D012415243600FA46FA /* HelpAndInfoViewController.swift */; };
 		FFD7BF8C2413A70500DE6D71 /* LearningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7BF8B2413A70500DE6D71 /* LearningViewController.swift */; };
 		FFF66FB723F047A2005DC191 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFF66FB623F047A2005DC191 /* Roboto-Bold.ttf */; };
 		FFF66FB923F047B4005DC191 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFF66FB823F047B4005DC191 /* Roboto-Regular.ttf */; };
@@ -438,7 +437,6 @@
 		FF9496EF240DC06100F795DF /* FavoritesVerbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVerbCell.swift; sourceTree = "<group>"; };
 		FFC4A8C823ECC5C00018521E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FFC4A8CA23ECCA920018521E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		FFD04D012415243600FA46FA /* HelpAndInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpAndInfoViewController.swift; sourceTree = "<group>"; };
 		FFD04D042415AAE600FA46FA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		FFD7BF8B2413A70500DE6D71 /* LearningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningViewController.swift; sourceTree = "<group>"; };
 		FFF66FB623F047A2005DC191 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
@@ -511,9 +509,8 @@
 			children = (
 				FF39FA3823EB817800EBCD1E /* AppDelegate.swift */,
 				FF39FA3A23EB817800EBCD1E /* SceneDelegate.swift */,
-				FF483732240B3918008F035D /* Details */,
 				FF39FA3E23EB817800EBCD1E /* Main.storyboard */,
-				FFD04D032415243D00FA46FA /* HelpAndInfo */,
+				FF483732240B3918008F035D /* Details */,
 				FFD7BF8D2413A70C00DE6D71 /* Learning */,
 				FF9496EE240DB67000F795DF /* FavoritesVerbs */,
 				FF2E8B3D23F9E69A001F1C6D /* Login */,
@@ -764,14 +761,6 @@
 				DA8058CBA39A8DD54CF1C886 /* Pods-easy-verbs.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		FFD04D032415243D00FA46FA /* HelpAndInfo */ = {
-			isa = PBXGroup;
-			children = (
-				FFD04D012415243600FA46FA /* HelpAndInfoViewController.swift */,
-			);
-			path = HelpAndInfo;
 			sourceTree = "<group>";
 		};
 		FFD7BF8D2413A70C00DE6D71 /* Learning */ = {
@@ -1113,7 +1102,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF9496F0240DC06200F795DF /* FavoritesVerbCell.swift in Sources */,
-				FFD04D022415243600FA46FA /* HelpAndInfoViewController.swift in Sources */,
 				FF39FA3D23EB817800EBCD1E /* SignInViewController.swift in Sources */,
 				FFF66FBB23F07C1F005DC191 /* MenuViewController.swift in Sources */,
 				FF0A296723FC95C1000A3844 /* IrregularVerb.swift in Sources */,

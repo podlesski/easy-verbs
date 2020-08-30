@@ -11,6 +11,10 @@ import Firebase
 
 class AllVerbsViewController: UIViewController {
     
+    let backButton = UIButton()
+    let searchBar = UISearchBar()
+    let verbTableView = UITableView()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -22,33 +26,27 @@ class AllVerbsViewController: UIViewController {
         
         return queue
     }()
-    
     let storage = Storage.storage().reference()
-    
     var resaltsOfSearch = [IrregularVerb]()
     var allVerbs = [IrregularVerb]()
     
-    @IBOutlet weak var searchBar: UISearchBar!
-    
-    @IBOutlet weak var verbTableView: UITableView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor(named: "projectColor2")
         
-        verbTableView.delegate = self
-        verbTableView.dataSource = self
-        verbTableView.rowHeight = 100
-        verbTableView.separatorStyle = .none
-        searchBar.searchTextField.textColor = UIColor(named: "projectColor")
-        searchBar.delegate = self
-        searchBar.autocapitalizationType = .none
+        setUpBackButton()
+        setUpBackButtonConstraint()
+        
+        setUpSearchBar()
+        setUpSearchBarConstraint()
+        
+        setUpVerbTableView()
+        setUpVerbTableViewConstraint()
+        
         resaltsOfSearch = allVerbs
         
-        
         // MARK: -> Loading JSON
-        
         let allVerbsRef = storage.child("easy_verbs.json")
-        
         allVerbsRef.getData(maxSize: Int64.max) { [weak self] (data, error) in
             guard error == nil else { return }
             guard let self = self else { return }
@@ -68,6 +66,60 @@ class AllVerbsViewController: UIViewController {
         }
     }
     
+    //MARK: -> Set Up Back Button
+    func setUpBackButton() {
+        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+        backButton.tintColor = UIColor(named: "projectColor")
+        backButton.backgroundColor = UIColor(named: "projectColor2")
+        backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
+        self.view.addSubview(backButton)
+    }
+    
+    func setUpBackButtonConstraint() {
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        backButton.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive = true
+        backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
+        backButton.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 70).isActive = true
+    }
+    
+    //MARK: -> Set Up Search Bar
+    func setUpSearchBar() {
+        searchBar.delegate = self
+        searchBar.searchTextField.textColor = UIColor(named: "projectColor")
+        searchBar.autocapitalizationType = .none
+        searchBar.barTintColor = UIColor(named: "projectColor2")
+        searchBar.backgroundColor = UIColor(named: "projectColor2")
+        searchBar.tintColor = UIColor(named: "projectColor")
+        self.view.addSubview(searchBar)
+    }
+    
+    func setUpSearchBarConstraint() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: self.backButton.trailingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        searchBar.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 25).isActive = true
+    }
+    
+    //MARK: -> Set Up Verb Table View
+    func setUpVerbTableView() {
+        verbTableView.delegate = self
+        verbTableView.dataSource = self
+        verbTableView.rowHeight = 100
+        verbTableView.separatorStyle = .none
+        verbTableView.backgroundColor = UIColor(named: "projectColor2")
+        self.view.addSubview(verbTableView)
+    }
+    
+    func setUpVerbTableViewConstraint() {
+        verbTableView.translatesAutoresizingMaskIntoConstraints = false
+        verbTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        verbTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        verbTableView.topAnchor.constraint(equalTo: self.searchBar.bottomAnchor).isActive = true
+        verbTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? DetailsViewController,
             let verb = sender as? IrregularVerb {
@@ -76,7 +128,6 @@ class AllVerbsViewController: UIViewController {
     }
     
     // MARK: -> Search
-    
     private func doSearchText(_ text: String) {
         searchOperationQueue.cancelAllOperations()
         
@@ -90,9 +141,8 @@ class AllVerbsViewController: UIViewController {
         }
     }
     
-    // MARK: -> Button
-    
-    @IBAction func backButton(_ sender: Any) {
+    // MARK: -> Button Did Tap
+    @objc func backButtonDidTap(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -107,11 +157,7 @@ extension AllVerbsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellID = "VerbIDCell"
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as? VerbCell else { fatalError("Can't not find cell with \(cellID) at index \(indexPath)")
-        }
-        
+        let cell = VerbCell()
         let verb = isSearchInProgress ? resaltsOfSearch[indexPath.row] : allVerbs[indexPath.row]
         cell.delegate = self
         cell.update(with: verb)
@@ -120,7 +166,6 @@ extension AllVerbsViewController: UITableViewDataSource {
 }
 
 //MARK: -> Extensions
-
 extension AllVerbsViewController: UISearchBarDelegate {
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
@@ -141,10 +186,10 @@ extension AllVerbsViewController: UISearchBarDelegate {
 }
 
 extension AllVerbsViewController: VerbCellDelegate {
-    
     func didTapOnVerbButton(with verb: IrregularVerb?) {
-        
-        performSegue(withIdentifier: "DetailsSegue", sender: verb)
-        
+        let newVC = DetailsViewController()
+        newVC.modalPresentationStyle = .fullScreen
+        newVC.verbFromDelegate = verb
+        self.present(newVC, animated: true, completion: nil)        
     }
 }
