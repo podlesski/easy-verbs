@@ -1,11 +1,3 @@
-//
-//  MenuViewController.swift
-//  easy-verbs
-//
-//  Created by Artemy Podlessky on 2/9/20.
-//  Copyright © 2020 Artemy Podlessky. All rights reserved.
-//
-
 import UIKit
 
 class MenuViewController: UIViewController {
@@ -14,76 +6,97 @@ class MenuViewController: UIViewController {
     let buttonTableView = UITableView()
     let appNameLabel = UILabel()
     
+    private struct Constants {
+        static let secondProjectColor: String = "projectColor2"
+        static let projectColor: String = "projectColor"
+        static let fontBoldName: String = "Roboto-Bold"
+        static let fontSizeLabel: CGFloat = 48.0
+        static let sizeLabel: CGFloat = 180.0
+        static let rowHight: CGFloat = 200.0
+        static let textLabel: String = "EASY VERBS"
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(named: "projectColor2")
-        
+        setUpViews()
+        setUpViewsConstraints()
+    }
+    
+    func setUpViews() {
+        self.view.backgroundColor = UIColor(named: Constants.secondProjectColor)
         setUpBackground()
-        setUpBackgroundConstraint()
-        
         setUpAppNameLabel()
-        setUpAppNameLabelConstraint()
-        
         setUpButtonTableView()
+    }
+    
+    func setUpViewsConstraints() {
+        setUpBackgroundConstraint()
+        setUpAppNameLabelConstraint()
         setUpButtonTableViewConstraint()
     }
     
     //MARK: -> Set Up Background
     func setUpBackground() {
-        background.backgroundColor = UIColor(named: "projectColor2")
+        background.backgroundColor = UIColor(named: Constants.secondProjectColor)
         self.view.addSubview(background)
     }
     
     func setUpBackgroundConstraint() {
-        self.background.translatesAutoresizingMaskIntoConstraints = false
-        self.background.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        self.background.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        self.background.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50).isActive = true
-        self.background.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 280).isActive = true
+        background.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            background.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            background.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            background.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50),
+            background.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 280)
+            ])
     }
     
     //MARK: -> Set Up App Name Label
     func setUpAppNameLabel() {
-        appNameLabel.text = "EASY VERBS"
-        appNameLabel.textColor = UIColor(named: "projectColor")
-        appNameLabel.font = UIFont(name: "Roboto-Bold", size: 48)
+        appNameLabel.text = Constants.textLabel
+        appNameLabel.textColor = UIColor(named: Constants.projectColor)
+        appNameLabel.font = UIFont(name: Constants.fontBoldName, size: Constants.fontSizeLabel)
         appNameLabel.lineBreakMode = .byWordWrapping
         appNameLabel.numberOfLines = 2
         appNameLabel.textAlignment = .center
         appNameLabel.backgroundColor = .clear
         appNameLabel.layer.borderWidth = 4
-        appNameLabel.layer.borderColor = UIColor(named:"projectColor")?.cgColor
+        appNameLabel.layer.borderColor = UIColor(named:Constants.projectColor)?.cgColor
         self.view.addSubview(appNameLabel)
     }
     
     func setUpAppNameLabelConstraint() {
-        self.appNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.appNameLabel.heightAnchor.constraint(equalToConstant: 180).isActive = true
-        self.appNameLabel.widthAnchor.constraint(equalToConstant: 180).isActive = true
-        self.appNameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.appNameLabel.centerYAnchor.constraint(equalTo: self.background.centerYAnchor, constant: 20).isActive = true
+        appNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            appNameLabel.heightAnchor.constraint(equalToConstant: Constants.sizeLabel),
+            appNameLabel.widthAnchor.constraint(equalToConstant: Constants.sizeLabel),
+            appNameLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            appNameLabel.centerYAnchor.constraint(equalTo: background.centerYAnchor, constant: 20)
+            ])
     }
     
     //MARK: -> Set Up Button Table View
     func setUpButtonTableView() {
-        buttonTableView.rowHeight = 200
+        buttonTableView.rowHeight = Constants.rowHight
         buttonTableView.dataSource = self
         buttonTableView.delegate = self
         buttonTableView.separatorStyle = .none
-        buttonTableView.backgroundColor = UIColor(named: "projectColor2")
+        buttonTableView.backgroundColor = UIColor(named: Constants.secondProjectColor)
         self.view.addSubview(buttonTableView)
     }
     
     func setUpButtonTableViewConstraint() {
-        self.buttonTableView.translatesAutoresizingMaskIntoConstraints = false
-        self.buttonTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        self.buttonTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        self.buttonTableView.topAnchor.constraint(equalTo: self.background.bottomAnchor).isActive = true
-        self.buttonTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        buttonTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            buttonTableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            buttonTableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            buttonTableView.topAnchor.constraint(equalTo: background.bottomAnchor),
+            buttonTableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            ])
     }
 }
 
@@ -97,7 +110,6 @@ extension UIButton {
 }
 
 extension MenuViewController: UITableViewDelegate {
-    
 }
 
 extension MenuViewController: UITableViewDataSource {
@@ -118,7 +130,7 @@ extension MenuViewController: ButtonTableViewCellDelegate {
     func didTapOnMenuButton(with name: String) {
         switch name {
         case "AllVerbsViewController":
-            let newVC = AllVerbsViewController()
+            let newVC = AllVerbsFactory.make()
             newVC.modalPresentationStyle = .fullScreen
             self.present(newVC, animated: true, completion: nil)
         case "FavoritesVerbsViewController":
@@ -130,7 +142,7 @@ extension MenuViewController: ButtonTableViewCellDelegate {
             newVC.modalPresentationStyle = .fullScreen
             self.present(newVC, animated: true, completion: nil)
         default:
-            let newVC = AllVerbsViewController()
+            let newVC = AllVerbsFactory.make()
             newVC.modalPresentationStyle = .fullScreen
             self.present(newVC, animated: true, completion: nil)
         }

@@ -1,11 +1,3 @@
-//
-//  DetailsViewController.swift
-//  easy-verbs
-//
-//  Created by Artemy Podlessky on 3/1/20.
-//  Copyright © 2020 Artemy Podlessky. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
 import Firebase
@@ -26,8 +18,24 @@ class DetailsViewController: UIViewController {
     let pronunciationButton = UIButton()
     let favoritesButton = UIButton()
     let backButton = UIButton()
-    
     var favoritesVerbs = [String]()
+    
+    private struct Constants {
+        static let secondProjectColor: String = "projectColor2"
+        static let projectColor: String = "projectColor"
+        static let fontName: String = "Roboto-Regular"
+        static let fontBoldName: String = "Roboto-Bold"
+        static let fontSizeDescriptionAndButtons: CGFloat = 17.0
+        static let fontSizeVerbs: CGFloat = 25.0
+        static let leadingMargin: CGFloat = 40.0
+        static let trailingMargin: CGFloat = -40.0
+        static let textLeftButton: String = "PRONUN CIATION"
+        static let textRightButton: String = "FAVORITES"
+        static let buttonWidth: CGFloat = 120.0
+        static let buttonHeight: CGFloat = 100.0
+        static let buttonMargin: CGFloat = -100.0
+        static let textColor: UIColor = .white
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -37,56 +45,90 @@ class DetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(named: "projectColor2")
-        
-        setUpBackButton()
-        setUpBackButtonConstraint()
-        
-        setUpDescriptionLabel()
-        setUpDescriptionLabelConstraint()
-        
-        setUpStackView()
-        setUpStackViewConstraint()
-        
-        setUpInfinitiveLabel()
-        setUpInfinitiveLabelConstraint()
-        
-        setUpPastSimpleLabelLabel()
-        setUpPastSimpleLabelLabelConstraint()
-        
-        setUpPastPerfectLabelLabel()
-        setUpPastPerfectLabelLabelConstraint()
-        
-        setUpPronunciationButton()
-        setUpPronunciationButtonConstraint()
-        
-        setUpFavoritesButton()
-        setUpFavoritesButtonConstraint()
-
+        setUpViews()
+        setUpViewsConstraints()
         downloadFavoriteVerbs()
+    }
+    
+    func setUpViews() {
+        self.view.backgroundColor = UIColor(named: Constants.secondProjectColor)
+        setUpBackButton()
+        setUpDescriptionLabel()
+        setUpStackView()
+        setupLabels([infinitiveLabel, pastSimpleLabel, pastPerfectLabel])
+        setupButtons([pronunciationButton, favoritesButton])
+    }
+    
+    func setUpViewsConstraints() {
+        setUpBackButtonConstraint()
+        setUpDescriptionLabelConstraint()
+        setUpStackViewConstraint()
+        setUpInfinitiveLabelConstraint()
+        setUpPastSimpleLabelLabelConstraint()
+        setUpPastPerfectLabelLabelConstraint()
+        setUpPronunciationButtonConstraint()
+        setUpFavoritesButtonConstraint()
+    }
+    
+    func setupLabels(_ labels: [UILabel]) {
+        labels.forEach {
+            $0.textColor = UIColor(named: Constants.projectColor)
+            $0.font = UIFont(name: Constants.fontBoldName, size: Constants.fontSizeVerbs)
+            $0.contentMode = .left
+            $0.wordWrap()
+            stackView.addArrangedSubview($0)
+        }
+        updateLabels()
+    }
+    
+    func updateLabels() {
+        infinitiveLabel.text = verbFromDelegate?.infinitive
+        pastSimpleLabel.text = verbFromDelegate?.pastSimple
+        pastPerfectLabel.text = verbFromDelegate?.pastParticiple
+    }
+    
+    func setupButtons(_ buttons: [UIButton]) {
+        buttons.forEach {
+            $0.titleLabel?.font = UIFont(name: Constants.fontBoldName, size: Constants.fontSizeDescriptionAndButtons)
+            $0.setTitleColor(Constants.textColor, for: .normal)
+            $0.titleLabel?.wordWrap()
+            $0.createBorderWhiteColor()
+            self.view.addSubview($0)
+        }
+        updateButtons()
+    }
+    
+    func updateButtons() {
+        pronunciationButton.setTitle(Constants.textLeftButton, for: .normal)
+        favoritesButton.setTitle(Constants.textRightButton, for: .normal)
+        pronunciationButton.addTarget(self, action: #selector(soundButton), for: .touchUpInside)
+        favoritesButton.addTarget(self, action: #selector(addToFavoritesButton), for: .touchUpInside)
+        pronunciationButton.highlightOfBorder()
     }
     
     //MARK: -> Set Up Back Button
     func setUpBackButton() {
         backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        backButton.tintColor = UIColor(named: "projectColor")
-        backButton.backgroundColor = UIColor(named: "projectColor2")
+        backButton.tintColor = UIColor(named: Constants.projectColor)
+        backButton.backgroundColor = UIColor(named: Constants.secondProjectColor)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         self.view.addSubview(backButton)
     }
     
     func setUpBackButtonConstraint() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        backButton.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive = true
-        backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
-        backButton.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 70).isActive = true
+        NSLayoutConstraint.activate([
+            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backButton.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
+            backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45),
+            backButton.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 70)
+            ])
     }
     
     //MARK: -> Set Up Description Label
     func setUpDescriptionLabel() {
-        descriptionLabel.textColor = .white
-        descriptionLabel.font = UIFont(name: "Roboto-Regular", size: 17)
+        descriptionLabel.textColor = Constants.textColor
+        descriptionLabel.font = UIFont(name: Constants.fontName, size: Constants.fontSizeDescriptionAndButtons)
         descriptionLabel.contentMode = .left
         descriptionLabel.text = verbFromDelegate?.description
         descriptionLabel.wordWrap()
@@ -95,10 +137,12 @@ class DetailsViewController: UIViewController {
     
     func setUpDescriptionLabelConstraint() {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
-        descriptionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
-        descriptionLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        descriptionLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            descriptionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
+            descriptionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 100),
+            descriptionLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+            ])
     }
     
     //MARK: -> Set Up Stack View
@@ -110,97 +154,61 @@ class DetailsViewController: UIViewController {
     
     func setUpStackViewConstraint() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
-        stackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 120).isActive = true
-        stackView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -50).isActive = true
+        NSLayoutConstraint.activate([
+            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
+            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            stackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 120),
+            stackView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -50)
+            ])
     }
     
     //MARK: -> Set Up Infinitive Label
-    func setUpInfinitiveLabel() {
-        infinitiveLabel.textColor = UIColor(named: "projectColor")
-        infinitiveLabel.font = UIFont(name: "Roboto-Bold", size: 25)
-        infinitiveLabel.contentMode = .left
-        infinitiveLabel.text = verbFromDelegate?.infinitive
-        infinitiveLabel.wordWrap()
-        stackView.addArrangedSubview(infinitiveLabel)
-    }
-    
     func setUpInfinitiveLabelConstraint() {
         infinitiveLabel.translatesAutoresizingMaskIntoConstraints = false
-        infinitiveLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
-        infinitiveLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
+        NSLayoutConstraint.activate([
+            infinitiveLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
+            infinitiveLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin)
+            ])
     }
     
     //MARK: -> Set Up Past Simple Label
-    func setUpPastSimpleLabelLabel() {
-        pastSimpleLabel.textColor = UIColor(named: "projectColor")
-        pastSimpleLabel.font = UIFont(name: "Roboto-Bold", size: 25)
-        pastSimpleLabel.contentMode = .left
-        pastSimpleLabel.text = verbFromDelegate?.pastSimple
-        pastSimpleLabel.wordWrap()
-        stackView.addArrangedSubview(pastSimpleLabel)
-    }
-    
     func setUpPastSimpleLabelLabelConstraint() {
         pastSimpleLabel.translatesAutoresizingMaskIntoConstraints = false
-        pastSimpleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
-        pastSimpleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
+        NSLayoutConstraint.activate([
+            pastSimpleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
+            pastSimpleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin)
+            ])
     }
     
     //MARK: -> Set Up Past Perfect Label
-    func setUpPastPerfectLabelLabel() {
-        pastPerfectLabel.textColor = UIColor(named: "projectColor")
-        pastPerfectLabel.font = UIFont(name: "Roboto-Bold", size: 25)
-        pastPerfectLabel.contentMode = .left
-        pastPerfectLabel.text = verbFromDelegate?.pastParticiple
-        pastPerfectLabel.wordWrap()
-        stackView.addArrangedSubview(pastPerfectLabel)
-    }
-    
     func setUpPastPerfectLabelLabelConstraint() {
         pastPerfectLabel.translatesAutoresizingMaskIntoConstraints = false
-        pastPerfectLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
-        pastPerfectLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
+        NSLayoutConstraint.activate([
+            pastPerfectLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
+            pastPerfectLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin)
+            ])
     }
     
     //MARK: -> Set Up Pronunciation Button
-    func setUpPronunciationButton() {
-        pronunciationButton.setTitle("PRONUN CIATION", for: .normal)
-        pronunciationButton.titleLabel?.font = UIFont(name: "Roboto-Bold", size: 17)
-        pronunciationButton.setTitleColor(.white, for: .normal)
-        pronunciationButton.titleLabel?.wordWrap()
-        pronunciationButton.addTarget(self, action: #selector(soundButton), for: .touchUpInside)
-        pronunciationButton.createBorderWhiteColor()
-        pronunciationButton.highlightOfBorder()
-        self.view.addSubview(pronunciationButton)
-    }
-    
     func setUpPronunciationButtonConstraint() {
         pronunciationButton.translatesAutoresizingMaskIntoConstraints = false
-        pronunciationButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
-        pronunciationButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        pronunciationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 40).isActive = true
-        pronunciationButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100).isActive = true
+        NSLayoutConstraint.activate([
+            pronunciationButton.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            pronunciationButton.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            pronunciationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            pronunciationButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
+            ])
     }
     
     //MARK: -> Set Up Favorites Button
-    func setUpFavoritesButton() {
-        favoritesButton.setTitle("FAVORITES", for: .normal)
-        favoritesButton.titleLabel?.font = UIFont(name: "Roboto-Bold", size: 17)
-        favoritesButton.setTitleColor(.white, for: .normal)
-        favoritesButton.titleLabel?.wordWrap()
-        favoritesButton.addTarget(self, action: #selector(addToFavoritesButton), for: .touchUpInside)
-        favoritesButton.createBorderWhiteColor()
-        self.view.addSubview(favoritesButton)
-    }
-    
     func setUpFavoritesButtonConstraint() {
         favoritesButton.translatesAutoresizingMaskIntoConstraints = false
-        favoritesButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
-        favoritesButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        favoritesButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -40).isActive = true
-        favoritesButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100).isActive = true
+        NSLayoutConstraint.activate([
+            favoritesButton.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            favoritesButton.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            favoritesButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
+            favoritesButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
+            ])
     }
 
     //MARK: -> Download Favorite Verbs
@@ -250,7 +258,6 @@ class DetailsViewController: UIViewController {
     func deleteFavoriteVerbs() {
         guard let user = userID else { return }
         guard let verb = verbFromDelegate?.infinitive else { return }
-        
         db.collection("users").whereField("uid", isEqualTo: user)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -267,7 +274,6 @@ class DetailsViewController: UIViewController {
     func addFavoriteVerbs() {
         guard let user = userID else { return }
         guard let verb = verbFromDelegate?.infinitive else { return }
-        
         db.collection("users").whereField("uid", isEqualTo: user)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -276,7 +282,6 @@ class DetailsViewController: UIViewController {
                     for document in querySnapshot!.documents {
                         print("\(document.documentID) => \(document.data())")
                         document.reference.updateData(["favoritesVerbs": FieldValue.arrayUnion([verb])])
-
                     }
                 }
         }

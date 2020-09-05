@@ -1,13 +1,3 @@
-//
-//  IrregularVerb.swift
-//  easy-verbs
-//
-//  Created by Artemy Podlessky on 2/19/20.
-//  Copyright © 2020 Artemy Podlessky. All rights reserved.
-//
-
-import Foundation
-
 class IrregularVerb: Codable {
     let infinitive, pastSimple, pastParticiple, description: String?
 

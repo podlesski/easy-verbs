@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		FC41F58D6B770C141A84D8C8 /* Pods_easy_verbs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D53180B65CBCF586A4A2CBB9 /* Pods_easy_verbs.framework */; };
 		FF0A296723FC95C1000A3844 /* IrregularVerb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A296623FC95C1000A3844 /* IrregularVerb.swift */; };
-		FF28E3082402A0070004DC26 /* AllVerbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF28E3072402A0070004DC26 /* AllVerbsViewController.swift */; };
 		FF28E30A2402A29A0004DC26 /* VerbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF28E3092402A29A0004DC26 /* VerbCell.swift */; };
 		FF39FA3923EB817800EBCD1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39FA3823EB817800EBCD1E /* AppDelegate.swift */; };
 		FF39FA3B23EB817800EBCD1E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39FA3A23EB817800EBCD1E /* SceneDelegate.swift */; };
@@ -211,8 +210,11 @@
 		FF4838B7240B42E6008F035D /* shave.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF4837F6240B42E6008F035D /* shave.mp3 */; };
 		FF4838B8240B42E6008F035D /* fly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF4837F7240B42E6008F035D /* fly.mp3 */; };
 		FF4838B9240B42E6008F035D /* lend.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF4837F8240B42E6008F035D /* lend.mp3 */; };
+		FF876B7525019C420087C8D6 /* AllVerbsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7125019C420087C8D6 /* AllVerbsProtocols.swift */; };
+		FF876B7625019C420087C8D6 /* AllVerbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7225019C420087C8D6 /* AllVerbsViewController.swift */; };
+		FF876B7725019C420087C8D6 /* AllVerbsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7325019C420087C8D6 /* AllVerbsPresenter.swift */; };
+		FF876B7825019C420087C8D6 /* AllVerbsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7425019C420087C8D6 /* AllVerbsFactory.swift */; };
 		FF9496ED240DB65B00F795DF /* FavoritesVerbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9496EC240DB65B00F795DF /* FavoritesVerbsViewController.swift */; };
-		FF9496F0240DC06200F795DF /* FavoritesVerbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9496EF240DC06100F795DF /* FavoritesVerbCell.swift */; };
 		FFC4A8C923ECC5C00018521E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC4A8C823ECC5C00018521E /* SignUpViewController.swift */; };
 		FFC4A8CB23ECCA920018521E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFC4A8CA23ECCA920018521E /* GoogleService-Info.plist */; };
 		FFD7BF8C2413A70500DE6D71 /* LearningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7BF8B2413A70500DE6D71 /* LearningViewController.swift */; };
@@ -228,7 +230,6 @@
 		D53180B65CBCF586A4A2CBB9 /* Pods_easy_verbs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_easy_verbs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8058CBA39A8DD54CF1C886 /* Pods-easy-verbs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easy-verbs.release.xcconfig"; path = "Target Support Files/Pods-easy-verbs/Pods-easy-verbs.release.xcconfig"; sourceTree = "<group>"; };
 		FF0A296623FC95C1000A3844 /* IrregularVerb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularVerb.swift; sourceTree = "<group>"; };
-		FF28E3072402A0070004DC26 /* AllVerbsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVerbsViewController.swift; sourceTree = "<group>"; };
 		FF28E3092402A29A0004DC26 /* VerbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerbCell.swift; sourceTree = "<group>"; };
 		FF39FA3523EB817800EBCD1E /* easy-verbs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "easy-verbs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF39FA3823EB817800EBCD1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -433,8 +434,11 @@
 		FF4837F6240B42E6008F035D /* shave.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shave.mp3; sourceTree = "<group>"; };
 		FF4837F7240B42E6008F035D /* fly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fly.mp3; sourceTree = "<group>"; };
 		FF4837F8240B42E6008F035D /* lend.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lend.mp3; sourceTree = "<group>"; };
+		FF876B7125019C420087C8D6 /* AllVerbsProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsProtocols.swift; sourceTree = "<group>"; };
+		FF876B7225019C420087C8D6 /* AllVerbsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsViewController.swift; sourceTree = "<group>"; };
+		FF876B7325019C420087C8D6 /* AllVerbsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsPresenter.swift; sourceTree = "<group>"; };
+		FF876B7425019C420087C8D6 /* AllVerbsFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsFactory.swift; sourceTree = "<group>"; };
 		FF9496EC240DB65B00F795DF /* FavoritesVerbsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVerbsViewController.swift; sourceTree = "<group>"; };
-		FF9496EF240DC06100F795DF /* FavoritesVerbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVerbCell.swift; sourceTree = "<group>"; };
 		FFC4A8C823ECC5C00018521E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FFC4A8CA23ECCA920018521E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FFD04D042415AAE600FA46FA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
@@ -530,7 +534,7 @@
 		FF48372D240B14BB008F035D /* AllVerbs */ = {
 			isa = PBXGroup;
 			children = (
-				FF28E3072402A0070004DC26 /* AllVerbsViewController.swift */,
+				FF876B7025019C410087C8D6 /* AllVerbsModule */,
 				FF28E3092402A29A0004DC26 /* VerbCell.swift */,
 				FF0A296623FC95C1000A3844 /* IrregularVerb.swift */,
 			);
@@ -745,11 +749,21 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		FF876B7025019C410087C8D6 /* AllVerbsModule */ = {
+			isa = PBXGroup;
+			children = (
+				FF876B7125019C420087C8D6 /* AllVerbsProtocols.swift */,
+				FF876B7225019C420087C8D6 /* AllVerbsViewController.swift */,
+				FF876B7325019C420087C8D6 /* AllVerbsPresenter.swift */,
+				FF876B7425019C420087C8D6 /* AllVerbsFactory.swift */,
+			);
+			path = AllVerbsModule;
+			sourceTree = "<group>";
+		};
 		FF9496EE240DB67000F795DF /* FavoritesVerbs */ = {
 			isa = PBXGroup;
 			children = (
 				FF9496EC240DB65B00F795DF /* FavoritesVerbsViewController.swift */,
-				FF9496EF240DC06100F795DF /* FavoritesVerbCell.swift */,
 			);
 			path = FavoritesVerbs;
 			sourceTree = "<group>";
@@ -1101,20 +1115,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF9496F0240DC06200F795DF /* FavoritesVerbCell.swift in Sources */,
 				FF39FA3D23EB817800EBCD1E /* SignInViewController.swift in Sources */,
 				FFF66FBB23F07C1F005DC191 /* MenuViewController.swift in Sources */,
+				FF876B7525019C420087C8D6 /* AllVerbsProtocols.swift in Sources */,
 				FF0A296723FC95C1000A3844 /* IrregularVerb.swift in Sources */,
 				FF483734240B3B10008F035D /* DetailsViewController.swift in Sources */,
+				FF876B7725019C420087C8D6 /* AllVerbsPresenter.swift in Sources */,
 				FFF66FBD23F09A5B005DC191 /* UniqueButton.swift in Sources */,
 				FF9496ED240DB65B00F795DF /* FavoritesVerbsViewController.swift in Sources */,
 				FF39FA3923EB817800EBCD1E /* AppDelegate.swift in Sources */,
 				FFC4A8C923ECC5C00018521E /* SignUpViewController.swift in Sources */,
 				FFF66FBF23F09ED5005DC191 /* ButtonTableViewCell.swift in Sources */,
-				FF28E3082402A0070004DC26 /* AllVerbsViewController.swift in Sources */,
+				FF876B7625019C420087C8D6 /* AllVerbsViewController.swift in Sources */,
 				FFD7BF8C2413A70500DE6D71 /* LearningViewController.swift in Sources */,
 				FF28E30A2402A29A0004DC26 /* VerbCell.swift in Sources */,
 				FF39FA3B23EB817800EBCD1E /* SceneDelegate.swift in Sources */,
+				FF876B7825019C420087C8D6 /* AllVerbsFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

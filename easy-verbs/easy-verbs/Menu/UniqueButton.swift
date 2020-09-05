@@ -1,11 +1,3 @@
-//
-//  UniqueButton.swift
-//  easy-verbs
-//
-//  Created by Artemy Podlessky on 2/9/20.
-//  Copyright © 2020 Artemy Podlessky. All rights reserved.
-//
-
 import Foundation
 
 class UniqueButton {

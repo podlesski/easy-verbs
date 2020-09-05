@@ -1,19 +1,7 @@
-//
-//  LearningViewController.swift
-//  easy-verbs
-//
-//  Created by Artemy Podlessky on 3/7/20.
-//  Copyright © 2020 Artemy Podlessky. All rights reserved.
-//
-
 import UIKit
 import Firebase
 
 class LearningViewController: UIViewController {
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
     
     let storage = Storage.storage().reference()
     let db  = Firestore.firestore()
@@ -26,9 +14,9 @@ class LearningViewController: UIViewController {
     var bestScore = Int()
     
     //MARK: -> Game UI Elements
-    let labelUnderTime = UILabel()
+    let labelOverTime = UILabel()
     let timerLabel = UILabel()
-    let labelUnderScore = UILabel()
+    let labelOverScore = UILabel()
     let scoreLabel = UILabel()
     let infinitiveLabel = UILabel()
     let pastSimpleLabel = UILabel()
@@ -39,53 +27,38 @@ class LearningViewController: UIViewController {
     
     //MARK: -> Start UI Elements
     let backButton = UIButton()
-    let labelUnderBestScore = UILabel()
+    let labelOverBestScore = UILabel()
     let bestScoreLabel = UILabel()
     let startGame = UIButton()
     
+    private struct Constants {
+        static let secondProjectColor: String = "projectColor2"
+        static let projectColor: String = "projectColor"
+        static let fontName: String = "Roboto-Bold"
+        static let fontSizeMedium: CGFloat = 17.0
+        static let fontSizeLarge: CGFloat = 25.0
+        static let textStartButton: String = "START"
+        static let textNextButton: String = "NEXT"
+        static let textBestScoreLabel: String = "BEST SCORE"
+        static let textScore: String = "0"
+        static let textScoreLabel: String = "SCORE"
+        static let textTimeLabel: String = "TIME"
+        static let buttonWidth: CGFloat = 100.0
+        static let buttonHeight: CGFloat = 65.0
+        static let fieldLeadingMargin: CGFloat = 100.0
+        static let fieldTrailingMargin: CGFloat = -100.0
+        static let distanceBetweenElements: CGFloat = 50.0
+        static let textColor: UIColor = .white
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(named: "projectColor2")
-        
-        setUpBackButton()
-        setUpBackButtonConstraint()
-        
-        setUpStartGameButton()
-        setUpStartGameButtonConstraint()
-        
-        setUpBestScoreLabel()
-        setUpBestScoreLabelConstraint()
-        
-        setUpLabelOverBestScore()
-        setUpLabelOverBestScoreConstraint()
-        
-        setUpPastSimpleLabel()
-        setUpPastSimpleLabelConstraint()
-        
-        setUpInfinitiveLabel()
-        setUpInfinitiveLabelConstraint()
-        
-        setUpPastPerfectLabel()
-        setUpPastPerfectLabelConstraint()
-        
-        setUpFieldForWriteVerb()
-        setUpFieldForWriteVerbConstraint()
-        
-        setUpNextButton()
-        setUpNextButtonConstraint()
-        
-        setUpTimerLabel()
-        setUpTimerLabelConstraint()
-        
-        setUpScoreLabel()
-        setUpScoreLabelConstraint()
-        
-        setUpLabelOverTimer()
-        setUpLabelOverTimerConstraint()
-        
-        setUpLabelOverScore()
-        setUpLabelOverScoreConstraint()
-        
+        setUpViews()
+        setUpViewsConstraints()
         bestScoreFromFirebase()
        
         // MARK: -> Loading JSON
@@ -107,122 +80,167 @@ class LearningViewController: UIViewController {
         }
     }
     
+    func setUpViews() {
+        self.view.backgroundColor = UIColor(named: Constants.secondProjectColor)
+        setUpBackButton()
+        setupButtons([startGame, nextVerb])
+        setupLabels([bestScoreLabel, timerLabel, scoreLabel])
+        setupVerbsLabels([pastSimpleLabel, infinitiveLabel, pastPerfectLabel])
+        setupOverLabels([labelOverBestScore, labelOverTime, labelOverScore])
+        setUpFieldForWriteVerb()
+    }
+    
+    func setUpViewsConstraints() {
+        setUpBackButtonConstraint()
+        setUpStartGameButtonConstraint()
+        setUpBestScoreLabelConstraint()
+        setUpLabelOverBestScoreConstraint()
+        setUpPastSimpleLabelConstraint()
+        setUpInfinitiveLabelConstraint()
+        setUpPastPerfectLabelConstraint()
+        setUpFieldForWriteVerbConstraint()
+        setUpNextButtonConstraint()
+        setUpTimerLabelConstraint()
+        setUpScoreLabelConstraint()
+        setUpLabelOverTimerConstraint()
+        setUpLabelOverScoreConstraint()
+    }
+    
+    func setupVerbsLabels(_ labels: [UILabel]) {
+        labels.forEach {
+            $0.font = UIFont(name: Constants.fontName, size: Constants.fontSizeLarge)
+            $0.textColor = UIColor(named: Constants.projectColor)
+            $0.isHidden = true
+            self.view.addSubview($0)
+        }
+    }
+    
+    func setupLabels(_ labels: [UILabel]) {
+        labels.forEach {
+            $0.font = UIFont(name: Constants.fontName, size: Constants.fontSizeLarge)
+            $0.textColor = Constants.textColor
+            $0.textAlignment = .center
+            $0.createWhiteBorder()
+            self.view.addSubview($0)
+        }
+        scoreLabel.text = Constants.textScore
+        scoreLabel.isHidden = true
+        timerLabel.isHidden = true
+    }
+    
+    func setupOverLabels(_ labels: [UILabel]) {
+        labels.forEach {
+            $0.font = UIFont(name: Constants.fontName, size: Constants.fontSizeMedium)
+            $0.textColor = Constants.textColor
+            $0.textAlignment = .center
+            self.view.addSubview($0)
+        }
+        labelOverBestScore.text = Constants.textBestScoreLabel
+        labelOverTime.text = Constants.textTimeLabel
+        labelOverScore.text = Constants.textScoreLabel
+        labelOverTime.isHidden = true
+        labelOverScore.isHidden = true
+    }
+    
+    func setupButtons(_ buttons: [UIButton]) {
+        buttons.forEach {
+            $0.titleLabel?.font = UIFont(name: Constants.fontName, size: Constants.fontSizeMedium)
+            $0.setTitleColor(UIColor(named: Constants.secondProjectColor), for: .normal)
+            $0.backgroundColor = UIColor(named: Constants.projectColor)
+            self.view.addSubview($0)
+        }
+        startGame.setTitle(Constants.textStartButton, for: .normal)
+        nextVerb.setTitle(Constants.textNextButton, for: .normal)
+        startGame.addTarget(self, action: #selector(startLearning), for: .touchUpInside)
+        nextVerb.addTarget(self, action: #selector(goToNextVerb), for: .touchUpInside)
+        nextVerb.isHidden = true
+    }
+    
     //MARK: -> Set Up Back Button
     func setUpBackButton() {
         backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        backButton.tintColor = UIColor(named: "projectColor")
-        backButton.backgroundColor = UIColor(named: "projectColor2")
+        backButton.tintColor = UIColor(named: Constants.projectColor)
+        backButton.backgroundColor = UIColor(named: Constants.secondProjectColor)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
         self.view.addSubview(backButton)
     }
     
     func setUpBackButtonConstraint() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        backButton.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50).isActive = true
-        backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45).isActive = true
-        backButton.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 70).isActive = true
+        NSLayoutConstraint.activate([
+            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            backButton.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
+            backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45),
+            backButton.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 70)
+            ])
     }
     
     //MARK: -> Set Up Start Game Button
-    func setUpStartGameButton() {
-        startGame.setTitle("START", for: .normal)
-        startGame.titleLabel?.font = UIFont(name: "Roboto-Bold", size: 17)
-        startGame.setTitleColor(UIColor(named: "projectColor2"), for: .normal)
-        startGame.backgroundColor = UIColor(named: "projectColor")
-        startGame.addTarget(self, action: #selector(startLearning), for: .touchUpInside)
-        self.view.addSubview(startGame)
-    }
-    
     func setUpStartGameButtonConstraint() {
         startGame.translatesAutoresizingMaskIntoConstraints = false
-        startGame.heightAnchor.constraint(equalToConstant: 65).isActive = true
-        startGame.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        startGame.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        startGame.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            startGame.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            startGame.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            startGame.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            startGame.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ])
     }
     
     //MARK: -> Set Up Best Score Label
-    func setUpBestScoreLabel() {
-        bestScoreLabel.font = UIFont(name: "Roboto-Bold", size: 25)
-        bestScoreLabel.textColor = .white
-        bestScoreLabel.textAlignment = .center
-        bestScoreLabel.createWhiteBorder()
-        self.view.addSubview(bestScoreLabel)
-    }
-    
     func setUpBestScoreLabelConstraint() {
         bestScoreLabel.translatesAutoresizingMaskIntoConstraints = false
-        bestScoreLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
-        bestScoreLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        bestScoreLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        bestScoreLabel.bottomAnchor.constraint(equalTo: startGame.topAnchor, constant: -100).isActive = true
+        NSLayoutConstraint.activate([
+            bestScoreLabel.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            bestScoreLabel.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            bestScoreLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            bestScoreLabel.bottomAnchor.constraint(equalTo: startGame.topAnchor, constant: -100)
+            ])
     }
     
     //MARK: -> Set Up Label Over Best Score
-    func setUpLabelOverBestScore() {
-        labelUnderBestScore.font = UIFont(name: "Roboto-Bold", size: 17)
-        labelUnderBestScore.textColor = .white
-        labelUnderBestScore.text = "BEST SCORE"
-        self.view.addSubview(labelUnderBestScore)
-    }
-    
     func setUpLabelOverBestScoreConstraint() {
-        labelUnderBestScore.translatesAutoresizingMaskIntoConstraints = false
-        labelUnderBestScore.heightAnchor.constraint(equalToConstant: 65).isActive = true
-        labelUnderBestScore.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        labelUnderBestScore.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        labelUnderBestScore.bottomAnchor.constraint(equalTo: bestScoreLabel.topAnchor, constant: -20).isActive = true
+        labelOverBestScore.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            labelOverBestScore.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            labelOverBestScore.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            labelOverBestScore.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            labelOverBestScore.bottomAnchor.constraint(equalTo: bestScoreLabel.topAnchor, constant: -20)
+            ])
     }
     
     //MARK: -> Set Up Past Simple Label
-    func setUpPastSimpleLabel() {
-        pastSimpleLabel.font = UIFont(name: "Roboto-Bold", size: 25)
-        pastSimpleLabel.textColor = UIColor(named: "projectColor")
-        pastSimpleLabel.isHidden = true
-        self.view.addSubview(pastSimpleLabel)
-    }
-    
     func setUpPastSimpleLabelConstraint() {
         pastSimpleLabel.translatesAutoresizingMaskIntoConstraints = false
-        pastSimpleLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        pastSimpleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            pastSimpleLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            pastSimpleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ])
     }
     
     //MARK: -> Set Up Infinitive Label
-    func setUpInfinitiveLabel() {
-        infinitiveLabel.font = UIFont(name: "Roboto-Bold", size: 25)
-        infinitiveLabel.textColor = UIColor(named: "projectColor")
-        infinitiveLabel.isHidden = true
-        self.view.addSubview(infinitiveLabel)
-    }
-    
     func setUpInfinitiveLabelConstraint() {
         infinitiveLabel.translatesAutoresizingMaskIntoConstraints = false
-        infinitiveLabel.bottomAnchor.constraint(equalTo: pastSimpleLabel.topAnchor, constant: -50).isActive = true
-        infinitiveLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            infinitiveLabel.bottomAnchor.constraint(equalTo: pastSimpleLabel.topAnchor, constant: -Constants.distanceBetweenElements),
+            infinitiveLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ])
     }
     
     //MARK: -> Set Up Past Perfect Label
-    func setUpPastPerfectLabel() {
-        pastPerfectLabel.font = UIFont(name: "Roboto-Bold", size: 25)
-        pastPerfectLabel.textColor = UIColor(named: "projectColor")
-        pastPerfectLabel.isHidden = true
-        self.view.addSubview(pastPerfectLabel)
-    }
-    
     func setUpPastPerfectLabelConstraint() {
         pastPerfectLabel.translatesAutoresizingMaskIntoConstraints = false
-        pastPerfectLabel.topAnchor.constraint(equalTo: pastSimpleLabel.bottomAnchor, constant: 50).isActive = true
-        pastPerfectLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        NSLayoutConstraint.activate([
+            pastPerfectLabel.topAnchor.constraint(equalTo: pastSimpleLabel.bottomAnchor, constant: Constants.distanceBetweenElements),
+            pastPerfectLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ])
     }
     
     //MARK: -> Set Up Field For Write Verb
     func setUpFieldForWriteVerb() {
-        fieldForWriteVerb.font = UIFont(name: "Roboto-Bold", size: 17)
-        fieldForWriteVerb.textColor = UIColor(named:"projectColor")
-        fieldForWriteVerb.tintColor = UIColor(named:"projectColor")
-        fieldForWriteVerb.layer.borderColor = UIColor(named:"projectColor")?.cgColor
+        fieldForWriteVerb.font = UIFont(name: Constants.fontName, size: Constants.fontSizeMedium)
+        fieldForWriteVerb.textColor = UIColor(named: Constants.projectColor)
+        fieldForWriteVerb.tintColor = UIColor(named: Constants.projectColor)
+        fieldForWriteVerb.layer.borderColor = UIColor(named: Constants.projectColor)?.cgColor
         fieldForWriteVerb.layer.borderWidth = 3
         fieldForWriteVerb.isHidden = true
         fieldForWriteVerb.textAlignment = .center
@@ -232,105 +250,69 @@ class LearningViewController: UIViewController {
     
     func setUpFieldForWriteVerbConstraint() {
         fieldForWriteVerb.translatesAutoresizingMaskIntoConstraints = false
-        fieldForWriteVerb.topAnchor.constraint(equalTo: pastPerfectLabel.bottomAnchor, constant: 60).isActive = true
-        fieldForWriteVerb.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        fieldForWriteVerb.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        fieldForWriteVerb.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 100).isActive = true
-        fieldForWriteVerb.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -100).isActive = true
+        NSLayoutConstraint.activate([
+            fieldForWriteVerb.topAnchor.constraint(equalTo: pastPerfectLabel.bottomAnchor, constant: 60),
+            fieldForWriteVerb.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            fieldForWriteVerb.heightAnchor.constraint(equalToConstant: 55),
+            fieldForWriteVerb.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.fieldLeadingMargin),
+            fieldForWriteVerb.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.fieldTrailingMargin)
+            ])
     }
     
     //MARK: -> Set Up Next Button
-    func setUpNextButton() {
-        nextVerb.isHidden = true
-        nextVerb.setTitle("NEXT", for: .normal)
-        nextVerb.titleLabel?.font = UIFont(name: "Roboto-Bold", size: 17)
-        nextVerb.setTitleColor(UIColor(named: "projectColor2"), for: .normal)
-        nextVerb.backgroundColor = UIColor(named: "projectColor")
-        nextVerb.addTarget(self, action: #selector(goToNextVerb), for: .touchUpInside)
-        self.view.addSubview(nextVerb)
-    }
-    
     func setUpNextButtonConstraint() {
         nextVerb.translatesAutoresizingMaskIntoConstraints = false
-        nextVerb.heightAnchor.constraint(equalToConstant: 65).isActive = true
-        nextVerb.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        nextVerb.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        nextVerb.topAnchor.constraint(equalTo: fieldForWriteVerb.bottomAnchor, constant: 50).isActive = true
+        NSLayoutConstraint.activate([
+            nextVerb.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            nextVerb.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            nextVerb.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            nextVerb.topAnchor.constraint(equalTo: fieldForWriteVerb.bottomAnchor, constant: Constants.distanceBetweenElements)
+            ])
     }
     
     //MARK: -> Set Up Timer Label
-    func setUpTimerLabel() {
-        timerLabel.isHidden = true
-        timerLabel.font = UIFont(name: "Roboto-Bold", size: 25)
-        timerLabel.textColor = .white
-        timerLabel.textAlignment = .center
-        timerLabel.createWhiteBorder()
-        self.view.addSubview(timerLabel)
-    }
-    
     func setUpTimerLabelConstraint() {
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
-        timerLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
-        timerLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        timerLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -80).isActive = true
-        timerLabel.bottomAnchor.constraint(equalTo: infinitiveLabel.topAnchor, constant: -60).isActive = true
+        NSLayoutConstraint.activate([
+            timerLabel.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            timerLabel.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            timerLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -80),
+            timerLabel.bottomAnchor.constraint(equalTo: infinitiveLabel.topAnchor, constant: -60)
+            ])
     }
     
     //MARK: -> Set Up Score Label
-    func setUpScoreLabel() {
-        scoreLabel.isHidden = true
-        scoreLabel.font = UIFont(name: "Roboto-Bold", size: 25)
-        scoreLabel.textColor = .white
-        scoreLabel.textAlignment = .center
-        scoreLabel.text = "0"
-        scoreLabel.createWhiteBorder()
-        self.view.addSubview(scoreLabel)
-    }
-    
     func setUpScoreLabelConstraint() {
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
-        scoreLabel.heightAnchor.constraint(equalToConstant: 65).isActive = true
-        scoreLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        scoreLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80).isActive = true
-        scoreLabel.bottomAnchor.constraint(equalTo: infinitiveLabel.topAnchor, constant: -60).isActive = true
+        NSLayoutConstraint.activate([
+            scoreLabel.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            scoreLabel.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            scoreLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80),
+            scoreLabel.bottomAnchor.constraint(equalTo: infinitiveLabel.topAnchor, constant: -60)
+            ])
     }
     
     //MARK: -> Set Up Label Over Timer
-    func setUpLabelOverTimer() {
-        labelUnderTime.isHidden = true
-        labelUnderTime.font = UIFont(name: "Roboto-Bold", size: 17)
-        labelUnderTime.textColor = .white
-        labelUnderTime.text = "TIME"
-        labelUnderTime.textAlignment = .center
-        self.view.addSubview(labelUnderTime)
-    }
-    
     func setUpLabelOverTimerConstraint() {
-        labelUnderTime.translatesAutoresizingMaskIntoConstraints = false
-        labelUnderTime.heightAnchor.constraint(equalToConstant: 65).isActive = true
-        labelUnderTime.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        labelUnderTime.centerXAnchor.constraint(equalTo: timerLabel.centerXAnchor).isActive = true
-        labelUnderTime.bottomAnchor.constraint(equalTo: timerLabel.topAnchor, constant: -20).isActive = true
+        labelOverTime.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            labelOverTime.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            labelOverTime.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            labelOverTime.centerXAnchor.constraint(equalTo: timerLabel.centerXAnchor),
+            labelOverTime.bottomAnchor.constraint(equalTo: timerLabel.topAnchor, constant: -20)
+            ])
     }
     
     //MARK: -> Set Up Label Over Score
-    func setUpLabelOverScore() {
-        labelUnderScore.isHidden = true
-        labelUnderScore.font = UIFont(name: "Roboto-Bold", size: 17)
-        labelUnderScore.textColor = .white
-        labelUnderScore.text = "SCORE"
-        labelUnderScore.textAlignment = .center
-        self.view.addSubview(labelUnderScore)
-    }
-    
     func setUpLabelOverScoreConstraint() {
-        labelUnderScore.translatesAutoresizingMaskIntoConstraints = false
-        labelUnderScore.heightAnchor.constraint(equalToConstant: 65).isActive = true
-        labelUnderScore.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        labelUnderScore.centerXAnchor.constraint(equalTo: scoreLabel.centerXAnchor).isActive = true
-        labelUnderScore.bottomAnchor.constraint(equalTo: scoreLabel.topAnchor, constant: -20).isActive = true
+        labelOverScore.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            labelOverScore.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
+            labelOverScore.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
+            labelOverScore.centerXAnchor.constraint(equalTo: scoreLabel.centerXAnchor),
+            labelOverScore.bottomAnchor.constraint(equalTo: scoreLabel.topAnchor, constant: -20)
+            ])
     }
-    
     
     //MARK: -> Download the best score
     func bestScoreFromFirebase() {
@@ -391,13 +373,13 @@ class LearningViewController: UIViewController {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(actionForTimer), userInfo: nil, repeats: true)
         startGame.isHidden = true
         bestScoreLabel.isHidden = true
-        labelUnderBestScore.isHidden = true
+        labelOverBestScore.isHidden = true
         nextVerb.isHidden = false
         fieldForWriteVerb.isHidden = false
         timerLabel.isHidden = false
         scoreLabel.isHidden = false
-        labelUnderTime.isHidden = false
-        labelUnderScore.isHidden = false
+        labelOverTime.isHidden = false
+        labelOverScore.isHidden = false
         logicOfGame()
     }
     
@@ -408,7 +390,7 @@ class LearningViewController: UIViewController {
             timer.invalidate()
             startGame.isHidden = false
             bestScoreLabel.isHidden = false
-            labelUnderBestScore.isHidden = false
+            labelOverBestScore.isHidden = false
             nextVerb.isHidden = true
             fieldForWriteVerb.isHidden = true
             pastSimpleLabel.isHidden = true
@@ -416,8 +398,8 @@ class LearningViewController: UIViewController {
             pastPerfectLabel.isHidden = true
             timerLabel.isHidden = true
             scoreLabel.isHidden = true
-            labelUnderTime.isHidden = true
-            labelUnderScore.isHidden = true
+            labelOverTime.isHidden = true
+            labelOverScore.isHidden = true
             fieldForWriteVerb.text = ""
             if score > bestScore {
                 bestScore = score
