@@ -1,6 +1,16 @@
 import UIKit
 
-class MenuViewController: UIViewController {
+class MenuView: UIViewController, MenuViewProtocol {
+    private let presenter: MenuPresenterProtocol
+    
+    init(presenter: MenuPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let background = UIView()
     let buttonTableView = UITableView()
@@ -109,42 +119,25 @@ extension UIButton {
     }
 }
 
-extension MenuViewController: UITableViewDelegate {
+extension MenuView: UITableViewDelegate {
 }
 
-extension MenuViewController: UITableViewDataSource {
+extension MenuView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        buttonsOnMenu.count
+        presenter.buttonsOnMenu.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ButtonTableViewCell()
         cell.delegate = self
-        cell.update(with: buttonsOnMenu[indexPath.row])
+        cell.update(with: presenter.buttonsOnMenu[indexPath.row])
         return cell
     }
     
 }
 
-extension MenuViewController: ButtonTableViewCellDelegate {
+extension MenuView: ButtonTableViewCellDelegate {
     func didTapOnMenuButton(with name: String) {
-        switch name {
-        case "AllVerbsViewController":
-            let newVC = AllVerbsFactory.make()
-            newVC.modalPresentationStyle = .fullScreen
-            self.present(newVC, animated: true, completion: nil)
-        case "FavoritesVerbsViewController":
-            let newVC = FavoritesVerbsViewController()
-            newVC.modalPresentationStyle = .fullScreen
-            self.present(newVC, animated: true, completion: nil)
-        case "LearningViewController":
-            let newVC = LearningViewController()
-            newVC.modalPresentationStyle = .fullScreen
-            self.present(newVC, animated: true, completion: nil)
-        default:
-            let newVC = AllVerbsFactory.make()
-            newVC.modalPresentationStyle = .fullScreen
-            self.present(newVC, animated: true, completion: nil)
-        }
+        self.present(presenter.createNewVC(with: name), animated: true, completion: nil)
     }
 }

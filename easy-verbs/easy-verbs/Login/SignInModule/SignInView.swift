@@ -1,22 +1,27 @@
 import UIKit
 import FirebaseAuth
-import Firebase
 
-class SignUpViewController: UIViewController {
+class SignInView: UIViewController, SignInViewProtocol {
+    private let presenter: SignInPresenterProtocol
+    
+    init(presenter: SignInPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let emailTextField = UITextField()
     let emailLine = UIView()
     let passwordTextField = UITextField()
     let passwordLine = UIView()
-    let learningLabel = UILabel()
-    let signUpLabel = UILabel()
+    let signInLabel = UILabel()
+    let welcomeLabel = UILabel()
     let logoImage = UIImageView()
-    @objc let createNewAccountButton = UIButton()
-    @objc let backButton = UIButton()
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
+    @objc let nextButton = UIButton()
+    @objc let signUpButton = UIButton()
     
     private struct Constants {
         static let secondProjectColor: String = "projectColor2"
@@ -29,11 +34,16 @@ class SignUpViewController: UIViewController {
         static let textHight: CGFloat = 50.0
         static let emailPlaceholder: String = "Email"
         static let passwordPlaceholder: String = "Password"
-        static let secondLabelText: String = "to start learning"
-        static let firstLabelText: String = "Sign up"
+        static let secondLabelText: String = "sign in to continue"
+        static let firstLabelText: String = "Welcome"
         static let logoName: String = "logo"
-        static let secondButtonName: String = "Back to sign in"
+        static let secondButtonName: String = "New here? Sing up"
         static let fontSizeSecondButton: CGFloat = 15.0
+        
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewDidLoad() {
@@ -48,11 +58,12 @@ class SignUpViewController: UIViewController {
         setUpEmailLine()
         setUpPasswordTextField()
         setUpPasswordLine()
-        setUpLearningLabel()
-        setUpSignUpLabel()
+        setUpSignInLabel()
+        setUpSignInLabel()
+        setUpWelcomeLabel()
         setUpLogoImage()
         setUpNextButton()
-        setUpBackButton()
+        setUpSignUpButton()
     }
     
     func setUpViewsConstraints() {
@@ -60,11 +71,11 @@ class SignUpViewController: UIViewController {
         setUpEmailLineConstraint()
         setUpPasswordTextFieldConstraint()
         setUpPasswordLineConstraint()
-        setUpLearningLabelConstraint()
-        setUpSignUpLabelConstraint()
+        setUpSignInLabelConstraint()
+        setUpWelcomeLabelConstraint()
         setUpLogoImageConstraint()
         setUpNextButtonConstraint()
-        setUpBackButtonConstraint()
+        setUpSignUpButtonConstraint()
     }
     
     //MARK: -> Set Up Email Text Field
@@ -135,39 +146,39 @@ class SignUpViewController: UIViewController {
             ])
     }
     
-    //MARK: -> Set Up Learning Label
-    func setUpLearningLabel() {
-        learningLabel.text = Constants.secondLabelText
-        learningLabel.font = UIFont(name: Constants.fontName, size: Constants.fontSizeSecondLabel)
-        learningLabel.textColor = UIColor(named: Constants.projectColor)
-        self.view.addSubview(learningLabel)
+    //MARK: -> Set Up Sign In Label
+    func setUpSignInLabel() {
+        signInLabel.text = Constants.secondLabelText
+        signInLabel.font = UIFont(name: Constants.fontName, size: Constants.fontSizeSecondLabel)
+        signInLabel.textColor = UIColor(named: Constants.projectColor)
+        self.view.addSubview(signInLabel)
     }
     
-    func setUpLearningLabelConstraint() {
-        learningLabel.translatesAutoresizingMaskIntoConstraints = false
+    func setUpSignInLabelConstraint() {
+        signInLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            learningLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            learningLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
-            learningLabel.heightAnchor.constraint(equalToConstant: Constants.textHight),
-            learningLabel.bottomAnchor.constraint(equalTo: emailTextField.topAnchor, constant: -50)
+            signInLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            signInLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            signInLabel.heightAnchor.constraint(equalToConstant: Constants.textHight),
+            signInLabel.bottomAnchor.constraint(equalTo: emailTextField.topAnchor, constant: -50)
             ])
     }
     
-    //MARK: -> Set Up Sign Up Label
-    func setUpSignUpLabel() {
-        signUpLabel.text = Constants.firstLabelText
-        signUpLabel.font = UIFont(name: Constants.fontBoldName, size: Constants.fontSizeLabel)
-        signUpLabel.textColor = UIColor(named: Constants.projectColor)
-        self.view.addSubview(signUpLabel)
+    //MARK: -> Set Up Welcome Label
+    func setUpWelcomeLabel() {
+        welcomeLabel.text = Constants.firstLabelText
+        welcomeLabel.font = UIFont(name: Constants.fontBoldName, size: Constants.fontSizeLabel)
+        welcomeLabel.textColor = UIColor(named: Constants.projectColor)
+        self.view.addSubview(welcomeLabel)
     }
     
-    func setUpSignUpLabelConstraint() {
-        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
+    func setUpWelcomeLabelConstraint() {
+        welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            signUpLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            signUpLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
-            signUpLabel.heightAnchor.constraint(equalToConstant: 100),
-            signUpLabel.bottomAnchor.constraint(equalTo: learningLabel.topAnchor)
+            welcomeLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            welcomeLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            welcomeLabel.heightAnchor.constraint(equalToConstant: 100),
+            welcomeLabel.bottomAnchor.constraint(equalTo: signInLabel.topAnchor)
             ])
     }
     
@@ -184,52 +195,54 @@ class SignUpViewController: UIViewController {
             logoImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
             logoImage.heightAnchor.constraint(equalToConstant: 120),
             logoImage.widthAnchor.constraint(equalToConstant: 120),
-            logoImage.bottomAnchor.constraint(equalTo: signUpLabel.topAnchor)
+            logoImage.bottomAnchor.constraint(equalTo: welcomeLabel.topAnchor)
             ])
     }
     
-    //MARK: -> Set Up Create New Account Button
+    //MARK: -> Set Up Next Button
     func setUpNextButton() {
-        createNewAccountButton.backgroundColor = UIColor(named: Constants.projectColor)
-        createNewAccountButton.setImage(UIImage(systemName: "arrow.right"), for: .normal)
-        createNewAccountButton.tintColor = UIColor(named: Constants.secondProjectColor)
-        createNewAccountButton.addTarget(self, action: #selector(createNewAccountButtonDidTap), for: .touchUpInside)
-        self.view.addSubview(createNewAccountButton)
+        nextButton.backgroundColor = UIColor(named: Constants.projectColor)
+        nextButton.setImage(UIImage(systemName: "arrow.right"), for: .normal)
+        nextButton.tintColor = UIColor(named: Constants.secondProjectColor)
+        nextButton.addTarget(self, action: #selector(loginButton), for: .touchUpInside)
+        self.view.addSubview(nextButton)
     }
     
     func setUpNextButtonConstraint() {
-        createNewAccountButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            createNewAccountButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
-            createNewAccountButton.heightAnchor.constraint(equalToConstant: 65),
-            createNewAccountButton.widthAnchor.constraint(equalToConstant: 110),
-            createNewAccountButton.topAnchor.constraint(equalTo: passwordLine.bottomAnchor, constant: 50)
+            nextButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            nextButton.heightAnchor.constraint(equalToConstant: 65),
+            nextButton.widthAnchor.constraint(equalToConstant: 110),
+            nextButton.topAnchor.constraint(equalTo: passwordLine.bottomAnchor, constant: 50)
             ])
     }
     
-    //MARK: -> Set Up Back Button
-    func setUpBackButton() {
-        backButton.setTitle(Constants.secondButtonName, for: .normal)
-        backButton.titleLabel?.font = UIFont(name: Constants.fontName, size: Constants.fontSizeSecondButton)
-        backButton.setTitleColor(UIColor(named: Constants.projectColor), for: .normal)
-        backButton.addTarget(self, action: #selector(signUpButtonDidTap), for: .touchUpInside)
-        self.view.addSubview(backButton)
+    //MARK: -> Set Up Sign Up Button
+    func setUpSignUpButton() {
+        signUpButton.setTitle(Constants.secondButtonName, for: .normal)
+        signUpButton.titleLabel?.font = UIFont(name: Constants.fontName, size: Constants.fontSizeSecondButton)
+        signUpButton.setTitleColor(UIColor(named: Constants.projectColor), for: .normal)
+        signUpButton.addTarget(self, action: #selector(signUpButtonDidTap), for: .touchUpInside)
+        self.view.addSubview(signUpButton)
     }
     
-    func setUpBackButtonConstraint() {
-        backButton.translatesAutoresizingMaskIntoConstraints = false
+    func setUpSignUpButtonConstraint() {
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
-            backButton.topAnchor.constraint(equalTo: createNewAccountButton.bottomAnchor, constant: 50)
+            signUpButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            signUpButton.topAnchor.constraint(equalTo: nextButton.bottomAnchor, constant: 50)
             ])
     }
     
     //MARK: -> Buttons Actions
     @objc func signUpButtonDidTap() {
-        self.dismiss(animated: true, completion: nil)
+        let signUpViewController = SignUpFactory.make()
+        signUpViewController.modalPresentationStyle = .fullScreen
+        self.present(signUpViewController, animated: true, completion: nil)
     }
     
-    @objc func createNewAccountButtonDidTap(_ sender: Any) {
+    @objc func loginButton(_ sender: Any) {
         guard var emailText = emailTextField.text else {
             showAlert(title: "Error", message: "Email is epmpty")
             return
@@ -238,7 +251,6 @@ class SignUpViewController: UIViewController {
             showAlert(title: "Error", message: "Password is epmpty")
             return
         }
-        
         guard emailText.isValidEmail() else {
             emailText = ""
             showAlert(title: "Error", message: "This is not a valid email. Please try again.")
@@ -249,52 +261,33 @@ class SignUpViewController: UIViewController {
             showAlert(title: "Error", message: "Password must be more than 7 characters")
             return
         }
-        
-        Auth.auth().createUser(withEmail: emailText, password: passwordText) { (authResult, error) in
-            guard let authResult = authResult else { return }
-            guard error == nil else {
-                self.showAlert(title: "Error", message: "\(String(describing: error?.localizedDescription))")
-                return
-            }
-            let db = Firestore.firestore()
-            db.collection("users").addDocument(data: [
-                "email": emailText,
-                "password": passwordText,
-                "uid": authResult.user.uid,
-                "bestScore": 0,
-            ]) { error in
-                if let error = error {
-                    print("Error adding document: \(error)")
-                }
-            }
+        guard presenter.authState(email: emailText, password: passwordText) else {
+            showAlert(title: "Error", message: "This user does not exist.")
+            return
         }
-        self.dismiss(animated: true, completion: nil)
+        
+        let menuViewController = MenuFactory.make()
+        menuViewController.modalPresentationStyle = .fullScreen
+        self.present(menuViewController, animated: true, completion: nil)
     }
-    
 }
 
 //MARK: -> Extensions
-extension String {
-    func isValidEmail() -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: self)
-    }
-    
-    func isValidPassword() -> Bool {
-        if self.count >= 8 {
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
-extension SignUpViewController {
+extension SignInView {
     func showAlert(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: {(action) in alert.dismiss(animated: true, completion: nil)}))
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension UITextField{
+    @IBInspectable var placeHolderColor: UIColor? {
+        get {
+            return self.placeHolderColor
+        }
+        set {
+            self.attributedPlaceholder = NSAttributedString(string:self.placeholder != nil ? self.placeholder! : "", attributes:[NSAttributedString.Key.foregroundColor: newValue!.withAlphaComponent(0.3)])
+        }
     }
 }

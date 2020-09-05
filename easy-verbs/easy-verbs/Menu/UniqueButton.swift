@@ -11,6 +11,3 @@ class UniqueButton {
         self.id = id
     }
 }
-
-let buttonsOnMenu = [UniqueButton(name: "VOCAB LUARY", side: 1, id: "AllVerbsViewController"), UniqueButton(name: "FAVO RITES", side: 2, id: "FavoritesVerbsViewController"), UniqueButton(name: "TRAI NING", side: 1, id: "LearningViewController")]
-

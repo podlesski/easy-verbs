@@ -1,14 +1,19 @@
 import UIKit
 import AVFoundation
-import Firebase
 
-
-class DetailsViewController: UIViewController {
-    
-    //MARK: -> Firebase References
+class DetailsView: UIViewController, DetailsViewProtocol {
+    private let presenter: DetailsPresenterProtocol
     var verbFromDelegate: IrregularVerb?
-    let db  = Firestore.firestore()
-    let userID = Auth.auth().currentUser?.uid
+    
+    init(presenter: DetailsPresenterProtocol, verb: IrregularVerb?) {
+        self.presenter = presenter
+        self.verbFromDelegate = verb
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let stackView = UIStackView()
     let infinitiveLabel = UILabel()
@@ -18,7 +23,6 @@ class DetailsViewController: UIViewController {
     let pronunciationButton = UIButton()
     let favoritesButton = UIButton()
     let backButton = UIButton()
-    var favoritesVerbs = [String]()
     
     private struct Constants {
         static let secondProjectColor: String = "projectColor2"
@@ -47,7 +51,7 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         setUpViewsConstraints()
-        downloadFavoriteVerbs()
+        presenter.onViewDidLoad()
     }
     
     func setUpViews() {
@@ -210,86 +214,10 @@ class DetailsViewController: UIViewController {
             favoritesButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
             ])
     }
-
-    //MARK: -> Download Favorite Verbs
-    func downloadFavoriteVerbs() {
-        guard let user = userID else { return }
-        db.collection("users").whereField("uid", isEqualTo: user)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        DispatchQueue.global().async {
-                            print("\(document.documentID) => \(document.data())")
-                            self.favoritesVerbs =  document.data()["favoritesVerbs"] as? [String] ?? []
-                            print(self.favoritesVerbs)
-                            DispatchQueue.main.async {
-                                self.colorButtonOnStart(favoriteOrNot: self.favoriteOrNot())
-                            }
-                        }
-                    }
-                }
-        }
-    }
-    
-    func repeatDownloadFavoriteVerbs() {
-        guard let user = userID else { return }
-        //weak self
-        db.collection("users").whereField("uid", isEqualTo: user)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        DispatchQueue.global().async {
-                            print("\(document.documentID) => \(document.data())")
-                            self.favoritesVerbs =  document.data()["favoritesVerbs"] as? [String] ?? []
-                            print(self.favoritesVerbs)
-                            DispatchQueue.main.async {
-                                self.colorButtonOnStart(favoriteOrNot: self.repeatFavoriteOrNot())
-                            }
-                        }
-                    }
-                }
-        }
-    }
-    
-    func deleteFavoriteVerbs() {
-        guard let user = userID else { return }
-        guard let verb = verbFromDelegate?.infinitive else { return }
-        db.collection("users").whereField("uid", isEqualTo: user)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        print("\(document.documentID) => \(document.data())")
-                        document.reference.updateData(["favoritesVerbs": FieldValue.arrayRemove([verb])])
-                    }
-                }
-        }
-    }
-    
-    func addFavoriteVerbs() {
-        guard let user = userID else { return }
-        guard let verb = verbFromDelegate?.infinitive else { return }
-        db.collection("users").whereField("uid", isEqualTo: user)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        print("\(document.documentID) => \(document.data())")
-                        document.reference.updateData(["favoritesVerbs": FieldValue.arrayUnion([verb])])
-                    }
-                }
-        }
-    }
     
     //MARK: -> Buttons
     @objc func soundButton(_ sender: Any) {
-        guard let url = soundURL() else { return }
+        guard let url = presenter.soundURL() else { return }
         do {
              audioPlayer = try AVAudioPlayer(contentsOf: url)
              audioPlayer.play()
@@ -299,29 +227,7 @@ class DetailsViewController: UIViewController {
     }
     
     @objc func addToFavoritesButton(_ sender: Any) {
-        if favoriteOrNot() {
-            addFavoriteVerbs()
-            repeatDownloadFavoriteVerbs()
-        } else {
-            deleteFavoriteVerbs()
-            repeatDownloadFavoriteVerbs()
-        }
-    }
-    
-    func favoriteOrNot() -> Bool {
-        if favoritesVerbs.contains(verbFromDelegate?.infinitive ?? "ERROR") {
-            return false
-        } else {
-            return true
-        }
-    }
-    
-    func repeatFavoriteOrNot() -> Bool {
-        if favoritesVerbs.contains(verbFromDelegate?.infinitive ?? "ERROR") {
-            return true
-        } else {
-            return false
-        }
+        presenter.addToFavorites()
     }
     
     func colorButtonOnStart(favoriteOrNot: Bool) {
@@ -332,20 +238,9 @@ class DetailsViewController: UIViewController {
         }
     }
     
-    func soundURL() -> URL? {
-        guard let verb = verbFromDelegate,
-            let path = Bundle.main.path(forResource: verb.infinitive, ofType: "mp3")
-        else {
-            return nil
-        }
-        let sound = URL(fileURLWithPath: path)
-        return sound
-    }
-    
     @objc func backButtonDidTap(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
 }
 
 //MARK: -> Extensions

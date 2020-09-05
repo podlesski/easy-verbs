@@ -1,17 +1,21 @@
 import UIKit
-import Firebase
 
-class LearningViewController: UIViewController {
+class LearningView: UIViewController, LearningViewProtocol {
+    private let presenter: LearningPresenterProtocol
     
-    let storage = Storage.storage().reference()
-    let db  = Firestore.firestore()
-    let userID = Auth.auth().currentUser?.uid
-    var allVerbs = [IrregularVerb]()
+    init(presenter: LearningPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var time = 60
     var timer = Timer()
     var currentEmptyVerb: String?
     var score = 0
-    var bestScore = Int()
     
     //MARK: -> Game UI Elements
     let labelOverTime = UILabel()
@@ -59,25 +63,7 @@ class LearningViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         setUpViewsConstraints()
-        bestScoreFromFirebase()
-       
-        // MARK: -> Loading JSON
-        let allVerbsRef = storage.child("easy_verbs.json")
-        allVerbsRef.getData(maxSize: Int64.max) { [weak self] (data, error) in
-            guard error == nil else { return }
-            guard let self = self else { return }
-            guard let data = data else { return }
-            do {
-                let decoder = JSONDecoder()
-                let json = try decoder.decode([IrregularVerb].self, from: data)
-                print(json)
-                DispatchQueue.main.async {
-                self.allVerbs = json
-                }
-            } catch let error {
-                print(error)
-            }
-        }
+        presenter.onViewDidLoad()
     }
     
     func setUpViews() {
@@ -314,41 +300,8 @@ class LearningViewController: UIViewController {
             ])
     }
     
-    //MARK: -> Download the best score
-    func bestScoreFromFirebase() {
-    guard let user = userID else { return }
-    db.collection("users").whereField("uid", isEqualTo: user)
-        .getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    DispatchQueue.main.async {
-                        print("\(document.documentID) => \(document.data())")
-                        self.bestScore = document.data()["bestScore"] as? Int ?? 0
-                        self.bestScoreLabel.text = String(self.bestScore)
-                        print(self.bestScore)
-                    }
-                }
-            }
-        }
-    }
-    
-    //MARK: -> Update the best score
-    func updateBestScore() {
-        guard let user = userID else { return }
-        db.collection("users").whereField("uid", isEqualTo: user)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        print("\(document.documentID) => \(document.data())")
-                        document.reference.updateData(["bestScore" : self.bestScore])
-                        print(self.bestScore)
-                    }
-                }
-        }
+    func scoreUpdate() {
+        bestScoreLabel.text = String(presenter.bestScore)
     }
     
     //MARK: -> Buttons & Actions
@@ -380,6 +333,9 @@ class LearningViewController: UIViewController {
         scoreLabel.isHidden = false
         labelOverTime.isHidden = false
         labelOverScore.isHidden = false
+        pastSimpleLabel.isHidden = false
+        infinitiveLabel.isHidden = false
+        pastPerfectLabel.isHidden = false
         logicOfGame()
     }
     
@@ -401,10 +357,9 @@ class LearningViewController: UIViewController {
             labelOverTime.isHidden = true
             labelOverScore.isHidden = true
             fieldForWriteVerb.text = ""
-            if score > bestScore {
-                bestScore = score
-                bestScoreLabel.text = String(bestScore)
-                updateBestScore()
+            if score > presenter.bestScore {
+                presenter.scoreServerUpdate()
+                bestScoreLabel.text = String(presenter.bestScore)
             }
         }
     }
@@ -419,25 +374,21 @@ class LearningViewController: UIViewController {
     
     //MARK: -> Learning Logic
     func logicOfGame() {
-        let random = Int.random(in: 1...3)
-        let randomVerb = allVerbs.randomElement()
-        infinitiveLabel.text = cut(stringToCut: randomVerb?.infinitive)
-        pastSimpleLabel.text = cut(stringToCut: randomVerb?.pastSimple)
-        pastPerfectLabel.text = cut(stringToCut: randomVerb?.pastParticiple)
-        switch random {
+        let randomVerb: (IrregularVerb?, Int) = presenter.randomElement()
+        infinitiveLabel.text = cut(stringToCut: randomVerb.0?.infinitive)
+        pastSimpleLabel.text = cut(stringToCut: randomVerb.0?.pastSimple)
+        pastPerfectLabel.text = cut(stringToCut: randomVerb.0?.pastParticiple)
+        switch randomVerb.1 {
         case 1:
             infinitiveLabel.text = "?"
-            currentEmptyVerb = cut(stringToCut: randomVerb?.infinitive)
+            currentEmptyVerb = cut(stringToCut: randomVerb.0?.infinitive)
         case 2:
             pastSimpleLabel.text = "?"
-            currentEmptyVerb = cut(stringToCut: randomVerb?.pastSimple)
+            currentEmptyVerb = cut(stringToCut: randomVerb.0?.pastSimple)
         default:
             pastPerfectLabel.text = "?"
-            currentEmptyVerb = cut(stringToCut: randomVerb?.pastParticiple)
+            currentEmptyVerb = cut(stringToCut: randomVerb.0?.pastParticiple)
         }
-        pastSimpleLabel.isHidden = false
-        infinitiveLabel.isHidden = false
-        pastPerfectLabel.isHidden = false
     }
 }
 

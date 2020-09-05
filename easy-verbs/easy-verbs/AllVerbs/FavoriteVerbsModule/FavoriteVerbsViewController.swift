@@ -1,26 +1,21 @@
 import UIKit
-import Firebase
 
+final class FavoriteVerbsViewController: UIViewController, FavoriteVerbsViewProtocol {
+    private let presenter: FavoriteVerbsPresenterProtocol
+    var isSearchInProgress = false
 
-class FavoritesVerbsViewController: UIViewController {
+    init(presenter: FavoriteVerbsPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     let backButton = UIButton()
     let searchBar = UISearchBar()
     let verbTableView = UITableView()
-    let storage = Storage.storage().reference()
-    let db  = Firestore.firestore()
-    let userID = Auth.auth().currentUser?.uid
-    var resaltsOfSearch = [IrregularVerb]()
-    var allVerbs = [IrregularVerb]()
-    var userFavorite = [IrregularVerb]()
-    var favoritesVerbs = [String]()
-    private var isSearchInProgress = false
-    private lazy var searchOperationQueue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        
-        return queue
-    }()
     
     private struct Constants {
         static let secondProjectColor: String = "projectColor2"
@@ -36,27 +31,7 @@ class FavoritesVerbsViewController: UIViewController {
         super.viewDidLoad()
         setUpViews()
         setUpViewsConstraints()
-        
-        resaltsOfSearch = userFavorite
-        // MARK: -> Loading JSON
-        let allVerbsRef = storage.child("easy_verbs.json")
-        allVerbsRef.getData(maxSize: Int64.max) { [weak self] (data, error) in
-            guard error == nil else { return }
-            guard let self = self else { return }
-            guard let data = data else { return }
-                                
-            do {
-                let decoder = JSONDecoder()
-                let json = try decoder.decode([IrregularVerb].self, from: data)
-                print(json)
-                DispatchQueue.main.async {
-                    self.allVerbs = json
-                    self.favoritesVerbsFromFirebase()
-                }
-            } catch let error {
-                print(error)
-            }
-        }
+        presenter.onViewDidLoad()
     }
     
     func setUpViews() {
@@ -133,60 +108,30 @@ class FavoritesVerbsViewController: UIViewController {
     }
     
     private func doSearchText(_ text: String) {
-        searchOperationQueue.cancelAllOperations()
-        searchOperationQueue.addOperation { [weak self] in
-            guard let self = self else { return }
-            self.resaltsOfSearch = self.userFavorite.filter { $0.infinitive!.starts(with: text)  }
-            DispatchQueue.main.async { [weak self] in
-                self?.verbTableView.reloadData()
-            }
-        }
-    }
-    
-    func filterByFavorite() -> [IrregularVerb] {
-        let favorite = allVerbs.filter {
-            favoritesVerbs.contains($0.infinitive ?? "") }
-        print(favorite.count)
-        return favorite
-    }
-    
-    func favoritesVerbsFromFirebase() {
-        guard let user = userID else { return }
-        db.collection("users").whereField("uid", isEqualTo: user)
-            .getDocuments() { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                } else {
-                    for document in querySnapshot!.documents {
-                        DispatchQueue.main.async {
-                            print("\(document.documentID) => \(document.data())")
-                            self.favoritesVerbs =  document.data()["favoritesVerbs"] as? [String] ?? []
-                            print(self.favoritesVerbs)
-                            self.userFavorite = self.filterByFavorite()
-                            self.verbTableView.reloadData()
-                        }
-                    }
-                }
-        }
+        presenter.doSearchText(text)
     }
     
     @objc func backButtonDidTap(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    func reloadTableView() {
+        self.verbTableView.reloadData()
+    }
+    
 }
 
-extension FavoritesVerbsViewController: UITableViewDelegate {
+extension FavoriteVerbsViewController: UITableViewDelegate {
 }
 
-extension FavoritesVerbsViewController: UITableViewDataSource {
+extension FavoriteVerbsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return isSearchInProgress ? resaltsOfSearch.count : userFavorite.count
+        presenter.tableViewNumberOfRowsInSection
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = VerbCell()
-        let verb = isSearchInProgress ? resaltsOfSearch[indexPath.row] : userFavorite[indexPath.row]
+        let verb = presenter.currentVerbs(indexPath: indexPath)
         cell.delegate = self
         cell.update(with: verb)
         return cell
@@ -194,7 +139,7 @@ extension FavoritesVerbsViewController: UITableViewDataSource {
 }
 
 
-extension FavoritesVerbsViewController: UISearchBarDelegate {
+extension FavoriteVerbsViewController: UISearchBarDelegate {
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         isSearchInProgress = true
         return true
@@ -212,14 +157,10 @@ extension FavoritesVerbsViewController: UISearchBarDelegate {
     }
 }
 
-extension FavoritesVerbsViewController: VerbCellDelegate {
+extension FavoriteVerbsViewController: VerbCellDelegate {
     func didTapOnVerbButton(with verb: IrregularVerb?) {
-        let newVC = DetailsViewController()
+        let newVC = DetailsFactory.make(verb: verb)
         newVC.modalPresentationStyle = .fullScreen
-        newVC.verbFromDelegate = verb
         self.present(newVC, animated: true, completion: nil)
     }
 }
-
-
-

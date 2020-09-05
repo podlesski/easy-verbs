@@ -1,5 +1,4 @@
 import UIKit
-import Firebase
 
 final class AllVerbsViewController: UIViewController, AllVerbsViewProtocol {
     private let presenter: AllVerbsPresenterProtocol
@@ -161,9 +160,8 @@ extension AllVerbsViewController: UISearchBarDelegate {
 
 extension AllVerbsViewController: VerbCellDelegate {
     func didTapOnVerbButton(with verb: IrregularVerb?) {
-        let newVC = DetailsViewController()
+        let newVC = DetailsFactory.make(verb: verb)
         newVC.modalPresentationStyle = .fullScreen
-        newVC.verbFromDelegate = verb
         self.present(newVC, animated: true, completion: nil)
     }
 }

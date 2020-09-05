@@ -12,11 +12,8 @@
 		FF28E30A2402A29A0004DC26 /* VerbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF28E3092402A29A0004DC26 /* VerbCell.swift */; };
 		FF39FA3923EB817800EBCD1E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39FA3823EB817800EBCD1E /* AppDelegate.swift */; };
 		FF39FA3B23EB817800EBCD1E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39FA3A23EB817800EBCD1E /* SceneDelegate.swift */; };
-		FF39FA3D23EB817800EBCD1E /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF39FA3C23EB817800EBCD1E /* SignInViewController.swift */; };
-		FF39FA4023EB817800EBCD1E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF39FA3E23EB817800EBCD1E /* Main.storyboard */; };
 		FF39FA4223EB817D00EBCD1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF39FA4123EB817D00EBCD1E /* Assets.xcassets */; };
 		FF39FA4523EB817D00EBCD1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF39FA4323EB817D00EBCD1E /* LaunchScreen.storyboard */; };
-		FF483734240B3B10008F035D /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF483733240B3B10008F035D /* DetailsViewController.swift */; };
 		FF4837F9240B42E6008F035D /* beat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF483738240B42E5008F035D /* beat.mp3 */; };
 		FF4837FA240B42E6008F035D /* shear.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF483739240B42E5008F035D /* shear.mp3 */; };
 		FF4837FB240B42E6008F035D /* write.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF48373A240B42E5008F035D /* write.mp3 */; };
@@ -214,13 +211,33 @@
 		FF876B7625019C420087C8D6 /* AllVerbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7225019C420087C8D6 /* AllVerbsViewController.swift */; };
 		FF876B7725019C420087C8D6 /* AllVerbsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7325019C420087C8D6 /* AllVerbsPresenter.swift */; };
 		FF876B7825019C420087C8D6 /* AllVerbsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7425019C420087C8D6 /* AllVerbsFactory.swift */; };
-		FF9496ED240DB65B00F795DF /* FavoritesVerbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9496EC240DB65B00F795DF /* FavoritesVerbsViewController.swift */; };
-		FFC4A8C923ECC5C00018521E /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFC4A8C823ECC5C00018521E /* SignUpViewController.swift */; };
+		FF9F35DF2503F17C00BF7257 /* FavoriteVerbsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35DE2503F17C00BF7257 /* FavoriteVerbsFactory.swift */; };
+		FF9F35E12503F22800BF7257 /* FavoriteVerbsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35E02503F22800BF7257 /* FavoriteVerbsPresenter.swift */; };
+		FF9F35E32503F26B00BF7257 /* FavoriteVerbsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35E22503F26B00BF7257 /* FavoriteVerbsProtocols.swift */; };
+		FF9F35E52503F28D00BF7257 /* FavoriteVerbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35E42503F28D00BF7257 /* FavoriteVerbsViewController.swift */; };
+		FF9F35E92504066500BF7257 /* MenuProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35E82504066500BF7257 /* MenuProtocols.swift */; };
+		FF9F35EB2504067600BF7257 /* MenuFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35EA2504067600BF7257 /* MenuFactory.swift */; };
+		FF9F35ED250408C100BF7257 /* MenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35EC250408C100BF7257 /* MenuPresenter.swift */; };
+		FF9F35EF250408CC00BF7257 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35EE250408CC00BF7257 /* MenuView.swift */; };
+		FF9F35F22504193F00BF7257 /* SignInFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35F12504193F00BF7257 /* SignInFactory.swift */; };
+		FF9F35F42504195400BF7257 /* SignInProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35F32504195400BF7257 /* SignInProtocols.swift */; };
+		FF9F35F62504196400BF7257 /* SignInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35F52504196400BF7257 /* SignInPresenter.swift */; };
+		FF9F35F82504198B00BF7257 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35F72504198B00BF7257 /* SignInView.swift */; };
+		FF9F35FB25042B9700BF7257 /* SignUpFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35FA25042B9700BF7257 /* SignUpFactory.swift */; };
+		FF9F35FD25042BA800BF7257 /* SignUpProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35FC25042BA800BF7257 /* SignUpProtocols.swift */; };
+		FF9F35FF25042BB900BF7257 /* SignUpPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F35FE25042BB900BF7257 /* SignUpPresenter.swift */; };
+		FF9F360125042BD900BF7257 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F360025042BD900BF7257 /* SignUpView.swift */; };
+		FF9F3604250431A500BF7257 /* DetailsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F3603250431A500BF7257 /* DetailsFactory.swift */; };
+		FF9F3606250431BC00BF7257 /* DetailsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F3605250431BC00BF7257 /* DetailsProtocols.swift */; };
+		FF9F3608250431CC00BF7257 /* DetailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F3607250431CC00BF7257 /* DetailsPresenter.swift */; };
+		FF9F360A250431D900BF7257 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F3609250431D900BF7257 /* DetailsView.swift */; };
+		FF9F360D250444B600BF7257 /* LearningFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F360C250444B600BF7257 /* LearningFactory.swift */; };
+		FF9F360F250444E300BF7257 /* LearningProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F360E250444E300BF7257 /* LearningProtocols.swift */; };
+		FF9F36112504451400BF7257 /* LearningPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F36102504451400BF7257 /* LearningPresenter.swift */; };
+		FF9F36132504453500BF7257 /* LearningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF9F36122504453500BF7257 /* LearningView.swift */; };
 		FFC4A8CB23ECCA920018521E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FFC4A8CA23ECCA920018521E /* GoogleService-Info.plist */; };
-		FFD7BF8C2413A70500DE6D71 /* LearningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD7BF8B2413A70500DE6D71 /* LearningViewController.swift */; };
 		FFF66FB723F047A2005DC191 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFF66FB623F047A2005DC191 /* Roboto-Bold.ttf */; };
 		FFF66FB923F047B4005DC191 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFF66FB823F047B4005DC191 /* Roboto-Regular.ttf */; };
-		FFF66FBB23F07C1F005DC191 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF66FBA23F07C1F005DC191 /* MenuViewController.swift */; };
 		FFF66FBD23F09A5B005DC191 /* UniqueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF66FBC23F09A5B005DC191 /* UniqueButton.swift */; };
 		FFF66FBF23F09ED5005DC191 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF66FBE23F09ED5005DC191 /* ButtonTableViewCell.swift */; };
 /* End PBXBuildFile section */
@@ -234,12 +251,9 @@
 		FF39FA3523EB817800EBCD1E /* easy-verbs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "easy-verbs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF39FA3823EB817800EBCD1E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF39FA3A23EB817800EBCD1E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FF39FA3C23EB817800EBCD1E /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		FF39FA3F23EB817800EBCD1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FF39FA4123EB817D00EBCD1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF39FA4423EB817D00EBCD1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF39FA4623EB817D00EBCD1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FF483733240B3B10008F035D /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		FF483735240B40D2008F035D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FF483738240B42E5008F035D /* beat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beat.mp3; sourceTree = "<group>"; };
 		FF483739240B42E5008F035D /* shear.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shear.mp3; sourceTree = "<group>"; };
@@ -438,14 +452,33 @@
 		FF876B7225019C420087C8D6 /* AllVerbsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsViewController.swift; sourceTree = "<group>"; };
 		FF876B7325019C420087C8D6 /* AllVerbsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsPresenter.swift; sourceTree = "<group>"; };
 		FF876B7425019C420087C8D6 /* AllVerbsFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsFactory.swift; sourceTree = "<group>"; };
-		FF9496EC240DB65B00F795DF /* FavoritesVerbsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVerbsViewController.swift; sourceTree = "<group>"; };
-		FFC4A8C823ECC5C00018521E /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FF9F35DE2503F17C00BF7257 /* FavoriteVerbsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVerbsFactory.swift; sourceTree = "<group>"; };
+		FF9F35E02503F22800BF7257 /* FavoriteVerbsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVerbsPresenter.swift; sourceTree = "<group>"; };
+		FF9F35E22503F26B00BF7257 /* FavoriteVerbsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVerbsProtocols.swift; sourceTree = "<group>"; };
+		FF9F35E42503F28D00BF7257 /* FavoriteVerbsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteVerbsViewController.swift; sourceTree = "<group>"; };
+		FF9F35E82504066500BF7257 /* MenuProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuProtocols.swift; sourceTree = "<group>"; };
+		FF9F35EA2504067600BF7257 /* MenuFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuFactory.swift; sourceTree = "<group>"; };
+		FF9F35EC250408C100BF7257 /* MenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresenter.swift; sourceTree = "<group>"; };
+		FF9F35EE250408CC00BF7257 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		FF9F35F12504193F00BF7257 /* SignInFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInFactory.swift; sourceTree = "<group>"; };
+		FF9F35F32504195400BF7257 /* SignInProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInProtocols.swift; sourceTree = "<group>"; };
+		FF9F35F52504196400BF7257 /* SignInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPresenter.swift; sourceTree = "<group>"; };
+		FF9F35F72504198B00BF7257 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		FF9F35FA25042B9700BF7257 /* SignUpFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFactory.swift; sourceTree = "<group>"; };
+		FF9F35FC25042BA800BF7257 /* SignUpProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpProtocols.swift; sourceTree = "<group>"; };
+		FF9F35FE25042BB900BF7257 /* SignUpPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPresenter.swift; sourceTree = "<group>"; };
+		FF9F360025042BD900BF7257 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		FF9F3603250431A500BF7257 /* DetailsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsFactory.swift; sourceTree = "<group>"; };
+		FF9F3605250431BC00BF7257 /* DetailsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsProtocols.swift; sourceTree = "<group>"; };
+		FF9F3607250431CC00BF7257 /* DetailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsPresenter.swift; sourceTree = "<group>"; };
+		FF9F3609250431D900BF7257 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
+		FF9F360C250444B600BF7257 /* LearningFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningFactory.swift; sourceTree = "<group>"; };
+		FF9F360E250444E300BF7257 /* LearningProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProtocols.swift; sourceTree = "<group>"; };
+		FF9F36102504451400BF7257 /* LearningPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningPresenter.swift; sourceTree = "<group>"; };
+		FF9F36122504453500BF7257 /* LearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningView.swift; sourceTree = "<group>"; };
 		FFC4A8CA23ECCA920018521E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		FFD04D042415AAE600FA46FA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
-		FFD7BF8B2413A70500DE6D71 /* LearningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningViewController.swift; sourceTree = "<group>"; };
 		FFF66FB623F047A2005DC191 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		FFF66FB823F047B4005DC191 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
-		FFF66FBA23F07C1F005DC191 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		FFF66FBC23F09A5B005DC191 /* UniqueButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueButton.swift; sourceTree = "<group>"; };
 		FFF66FBE23F09ED5005DC191 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -474,8 +507,8 @@
 		FF2E8B3D23F9E69A001F1C6D /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				FFC4A8C823ECC5C00018521E /* SignUpViewController.swift */,
-				FF39FA3C23EB817800EBCD1E /* SignInViewController.swift */,
+				FF9F35F925042B7800BF7257 /* SignUpModule */,
+				FF9F35F02504191700BF7257 /* SignInModule */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -483,7 +516,7 @@
 		FF2E8B3E23F9E783001F1C6D /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				FFF66FBA23F07C1F005DC191 /* MenuViewController.swift */,
+				FF9F35E62504063200BF7257 /* MenuModule */,
 				FFF66FBE23F09ED5005DC191 /* ButtonTableViewCell.swift */,
 				FFF66FBC23F09A5B005DC191 /* UniqueButton.swift */,
 			);
@@ -513,10 +546,7 @@
 			children = (
 				FF39FA3823EB817800EBCD1E /* AppDelegate.swift */,
 				FF39FA3A23EB817800EBCD1E /* SceneDelegate.swift */,
-				FF39FA3E23EB817800EBCD1E /* Main.storyboard */,
-				FF483732240B3918008F035D /* Details */,
-				FFD7BF8D2413A70C00DE6D71 /* Learning */,
-				FF9496EE240DB67000F795DF /* FavoritesVerbs */,
+				FF9F360B2504444300BF7257 /* LearningModule */,
 				FF2E8B3D23F9E69A001F1C6D /* Login */,
 				FF48372D240B14BB008F035D /* AllVerbs */,
 				FF2E8B3E23F9E783001F1C6D /* Menu */,
@@ -534,19 +564,13 @@
 		FF48372D240B14BB008F035D /* AllVerbs */ = {
 			isa = PBXGroup;
 			children = (
+				FF9F35DD2503F0AD00BF7257 /* FavoriteVerbsModule */,
 				FF876B7025019C410087C8D6 /* AllVerbsModule */,
+				FF9F36022504317000BF7257 /* DetailsModule */,
 				FF28E3092402A29A0004DC26 /* VerbCell.swift */,
 				FF0A296623FC95C1000A3844 /* IrregularVerb.swift */,
 			);
 			path = AllVerbs;
-			sourceTree = "<group>";
-		};
-		FF483732240B3918008F035D /* Details */ = {
-			isa = PBXGroup;
-			children = (
-				FF483733240B3B10008F035D /* DetailsViewController.swift */,
-			);
-			path = Details;
 			sourceTree = "<group>";
 		};
 		FF483737240B42E5008F035D /* Sounds */ = {
@@ -760,12 +784,70 @@
 			path = AllVerbsModule;
 			sourceTree = "<group>";
 		};
-		FF9496EE240DB67000F795DF /* FavoritesVerbs */ = {
+		FF9F35DD2503F0AD00BF7257 /* FavoriteVerbsModule */ = {
 			isa = PBXGroup;
 			children = (
-				FF9496EC240DB65B00F795DF /* FavoritesVerbsViewController.swift */,
+				FF9F35DE2503F17C00BF7257 /* FavoriteVerbsFactory.swift */,
+				FF9F35E02503F22800BF7257 /* FavoriteVerbsPresenter.swift */,
+				FF9F35E22503F26B00BF7257 /* FavoriteVerbsProtocols.swift */,
+				FF9F35E42503F28D00BF7257 /* FavoriteVerbsViewController.swift */,
 			);
-			path = FavoritesVerbs;
+			path = FavoriteVerbsModule;
+			sourceTree = "<group>";
+		};
+		FF9F35E62504063200BF7257 /* MenuModule */ = {
+			isa = PBXGroup;
+			children = (
+				FF9F35E82504066500BF7257 /* MenuProtocols.swift */,
+				FF9F35EA2504067600BF7257 /* MenuFactory.swift */,
+				FF9F35EC250408C100BF7257 /* MenuPresenter.swift */,
+				FF9F35EE250408CC00BF7257 /* MenuView.swift */,
+			);
+			path = MenuModule;
+			sourceTree = "<group>";
+		};
+		FF9F35F02504191700BF7257 /* SignInModule */ = {
+			isa = PBXGroup;
+			children = (
+				FF9F35F12504193F00BF7257 /* SignInFactory.swift */,
+				FF9F35F32504195400BF7257 /* SignInProtocols.swift */,
+				FF9F35F52504196400BF7257 /* SignInPresenter.swift */,
+				FF9F35F72504198B00BF7257 /* SignInView.swift */,
+			);
+			path = SignInModule;
+			sourceTree = "<group>";
+		};
+		FF9F35F925042B7800BF7257 /* SignUpModule */ = {
+			isa = PBXGroup;
+			children = (
+				FF9F35FA25042B9700BF7257 /* SignUpFactory.swift */,
+				FF9F35FC25042BA800BF7257 /* SignUpProtocols.swift */,
+				FF9F35FE25042BB900BF7257 /* SignUpPresenter.swift */,
+				FF9F360025042BD900BF7257 /* SignUpView.swift */,
+			);
+			path = SignUpModule;
+			sourceTree = "<group>";
+		};
+		FF9F36022504317000BF7257 /* DetailsModule */ = {
+			isa = PBXGroup;
+			children = (
+				FF9F3603250431A500BF7257 /* DetailsFactory.swift */,
+				FF9F3605250431BC00BF7257 /* DetailsProtocols.swift */,
+				FF9F3607250431CC00BF7257 /* DetailsPresenter.swift */,
+				FF9F3609250431D900BF7257 /* DetailsView.swift */,
+			);
+			path = DetailsModule;
+			sourceTree = "<group>";
+		};
+		FF9F360B2504444300BF7257 /* LearningModule */ = {
+			isa = PBXGroup;
+			children = (
+				FF9F360C250444B600BF7257 /* LearningFactory.swift */,
+				FF9F360E250444E300BF7257 /* LearningProtocols.swift */,
+				FF9F36102504451400BF7257 /* LearningPresenter.swift */,
+				FF9F36122504453500BF7257 /* LearningView.swift */,
+			);
+			path = LearningModule;
 			sourceTree = "<group>";
 		};
 		FFA221E072F3D112762ABB02 /* Pods */ = {
@@ -775,14 +857,6 @@
 				DA8058CBA39A8DD54CF1C886 /* Pods-easy-verbs.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		FFD7BF8D2413A70C00DE6D71 /* Learning */ = {
-			isa = PBXGroup;
-			children = (
-				FFD7BF8B2413A70500DE6D71 /* LearningViewController.swift */,
-			);
-			path = Learning;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1033,7 +1107,6 @@
 				FF483864240B42E6008F035D /* dig.mp3 in Resources */,
 				FF483871240B42E6008F035D /* dream.mp3 in Resources */,
 				FF483839240B42E6008F035D /* overdraw.mp3 in Resources */,
-				FF39FA4023EB817800EBCD1E /* Main.storyboard in Resources */,
 				FF48381E240B42E6008F035D /* sell.mp3 in Resources */,
 				FF483843240B42E6008F035D /* forget.mp3 in Resources */,
 				FF48382A240B42E6008F035D /* wed.mp3 in Resources */,
@@ -1115,37 +1188,46 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF39FA3D23EB817800EBCD1E /* SignInViewController.swift in Sources */,
-				FFF66FBB23F07C1F005DC191 /* MenuViewController.swift in Sources */,
+				FF9F35EF250408CC00BF7257 /* MenuView.swift in Sources */,
+				FF9F35E32503F26B00BF7257 /* FavoriteVerbsProtocols.swift in Sources */,
+				FF9F35EB2504067600BF7257 /* MenuFactory.swift in Sources */,
+				FF9F3604250431A500BF7257 /* DetailsFactory.swift in Sources */,
+				FF9F35ED250408C100BF7257 /* MenuPresenter.swift in Sources */,
+				FF9F3608250431CC00BF7257 /* DetailsPresenter.swift in Sources */,
+				FF9F35F42504195400BF7257 /* SignInProtocols.swift in Sources */,
+				FF9F35DF2503F17C00BF7257 /* FavoriteVerbsFactory.swift in Sources */,
 				FF876B7525019C420087C8D6 /* AllVerbsProtocols.swift in Sources */,
 				FF0A296723FC95C1000A3844 /* IrregularVerb.swift in Sources */,
-				FF483734240B3B10008F035D /* DetailsViewController.swift in Sources */,
+				FF9F35F62504196400BF7257 /* SignInPresenter.swift in Sources */,
+				FF9F35FB25042B9700BF7257 /* SignUpFactory.swift in Sources */,
+				FF9F360A250431D900BF7257 /* DetailsView.swift in Sources */,
 				FF876B7725019C420087C8D6 /* AllVerbsPresenter.swift in Sources */,
+				FF9F35F82504198B00BF7257 /* SignInView.swift in Sources */,
 				FFF66FBD23F09A5B005DC191 /* UniqueButton.swift in Sources */,
-				FF9496ED240DB65B00F795DF /* FavoritesVerbsViewController.swift in Sources */,
+				FF9F35E12503F22800BF7257 /* FavoriteVerbsPresenter.swift in Sources */,
+				FF9F35F22504193F00BF7257 /* SignInFactory.swift in Sources */,
 				FF39FA3923EB817800EBCD1E /* AppDelegate.swift in Sources */,
-				FFC4A8C923ECC5C00018521E /* SignUpViewController.swift in Sources */,
+				FF9F35FF25042BB900BF7257 /* SignUpPresenter.swift in Sources */,
 				FFF66FBF23F09ED5005DC191 /* ButtonTableViewCell.swift in Sources */,
+				FF9F35FD25042BA800BF7257 /* SignUpProtocols.swift in Sources */,
 				FF876B7625019C420087C8D6 /* AllVerbsViewController.swift in Sources */,
-				FFD7BF8C2413A70500DE6D71 /* LearningViewController.swift in Sources */,
+				FF9F360F250444E300BF7257 /* LearningProtocols.swift in Sources */,
+				FF9F360D250444B600BF7257 /* LearningFactory.swift in Sources */,
 				FF28E30A2402A29A0004DC26 /* VerbCell.swift in Sources */,
+				FF9F35E92504066500BF7257 /* MenuProtocols.swift in Sources */,
 				FF39FA3B23EB817800EBCD1E /* SceneDelegate.swift in Sources */,
+				FF9F360125042BD900BF7257 /* SignUpView.swift in Sources */,
 				FF876B7825019C420087C8D6 /* AllVerbsFactory.swift in Sources */,
+				FF9F3606250431BC00BF7257 /* DetailsProtocols.swift in Sources */,
+				FF9F36112504451400BF7257 /* LearningPresenter.swift in Sources */,
+				FF9F36132504453500BF7257 /* LearningView.swift in Sources */,
+				FF9F35E52503F28D00BF7257 /* FavoriteVerbsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FF39FA3E23EB817800EBCD1E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FF39FA3F23EB817800EBCD1E /* Base */,
-				FFD04D042415AAE600FA46FA /* de */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FF39FA4323EB817D00EBCD1E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
