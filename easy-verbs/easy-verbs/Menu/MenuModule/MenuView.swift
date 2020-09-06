@@ -60,8 +60,8 @@ class MenuView: UIViewController, MenuViewProtocol {
         NSLayoutConstraint.activate([
             background.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             background.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            background.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 50),
-            background.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 280)
+            background.topAnchor.constraint(equalTo: self.view.topAnchor),
+            background.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 220)
             ])
     }
     

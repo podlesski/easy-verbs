@@ -45,6 +45,12 @@ class SignUpView: UIViewController, SignUpViewProtocol {
         static let fontSizeSecondButton: CGFloat = 15.0
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let contentHeight = logoImage.frame.height + signUpLabel.frame.height + learningLabel.frame.height + emailTextField.frame.height + passwordTextField.frame.height + createNewAccountButton.frame.height + 100
+        scrollView.contentSize = CGSize(width: contentView.frame.width, height: contentHeight)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
@@ -53,6 +59,8 @@ class SignUpView: UIViewController, SignUpViewProtocol {
     
     func setUpViews() {
         self.view.backgroundColor = UIColor(named: Constants.secondProjectColor)
+        self.view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         setUpEmailTextField()
         setUpEmailLine()
         setUpPasswordTextField()
@@ -65,6 +73,8 @@ class SignUpView: UIViewController, SignUpViewProtocol {
     }
     
     func setUpViewsConstraints() {
+        setUpScrollViewConstraint()
+        setUpScrollContentConstraint()
         setUpEmailTextFieldConstraint()
         setUpEmailLineConstraint()
         setUpPasswordTextFieldConstraint()
@@ -76,35 +86,58 @@ class SignUpView: UIViewController, SignUpViewProtocol {
         setUpBackButtonConstraint()
     }
     
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    
+    func setUpScrollViewConstraint() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+        ])
+    }
+    
+    func setUpScrollContentConstraint() {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            contentView.heightAnchor.constraint(equalToConstant: 800.0),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+    }
+    
     //MARK: -> Set Up Email Text Field
     func setUpEmailTextField() {
         emailTextField.placeholder = Constants.emailPlaceholder
         emailTextField.textColor = UIColor(named: Constants.projectColor)
         emailTextField.tintColor = UIColor(named: Constants.projectColor)
-        self.view.addSubview(emailTextField)
+        contentView.addSubview(emailTextField)
     }
     
     func setUpEmailTextFieldConstraint() {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            emailTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            emailTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            emailTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            emailTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
             emailTextField.heightAnchor.constraint(equalToConstant: Constants.textHight),
-            emailTextField.topAnchor.constraint(equalTo: self.view.centerYAnchor)
+            emailTextField.topAnchor.constraint(equalTo: contentView.centerYAnchor)
             ])
     }
     
     //MARK: -> Set Up Email Line
     func setUpEmailLine() {
         emailLine.backgroundColor = UIColor(named: Constants.projectColor)
-        self.view.addSubview(emailLine)
+        contentView.addSubview(emailLine)
     }
     
     func setUpEmailLineConstraint() {
         emailLine.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            emailLine.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            emailLine.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            emailLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            emailLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
             emailLine.heightAnchor.constraint(equalToConstant: 2),
             emailLine.topAnchor.constraint(equalTo: emailTextField.bottomAnchor)
             ])
@@ -115,14 +148,14 @@ class SignUpView: UIViewController, SignUpViewProtocol {
         passwordTextField.placeholder = Constants.passwordPlaceholder
         passwordTextField.textColor = UIColor(named: Constants.projectColor)
         passwordTextField.tintColor = UIColor(named: Constants.projectColor)
-        self.view.addSubview(passwordTextField)
+        contentView.addSubview(passwordTextField)
     }
     
     func setUpPasswordTextFieldConstraint() {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            passwordTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            passwordTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            passwordTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            passwordTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
             passwordTextField.heightAnchor.constraint(equalToConstant: Constants.textHight),
             passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 20)
             ])
@@ -131,14 +164,14 @@ class SignUpView: UIViewController, SignUpViewProtocol {
     //MARK: -> Set Up Password Line
     func setUpPasswordLine() {
         passwordLine.backgroundColor = UIColor(named: Constants.projectColor)
-        self.view.addSubview(passwordLine)
+        contentView.addSubview(passwordLine)
     }
     
     func setUpPasswordLineConstraint() {
         passwordLine.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            passwordLine.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            passwordLine.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            passwordLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            passwordLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
             passwordLine.heightAnchor.constraint(equalToConstant: 2),
             passwordLine.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor)
             ])
@@ -149,16 +182,16 @@ class SignUpView: UIViewController, SignUpViewProtocol {
         learningLabel.text = Constants.secondLabelText
         learningLabel.font = UIFont(name: Constants.fontName, size: Constants.fontSizeSecondLabel)
         learningLabel.textColor = UIColor(named: Constants.projectColor)
-        self.view.addSubview(learningLabel)
+        contentView.addSubview(learningLabel)
     }
     
     func setUpLearningLabelConstraint() {
         learningLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            learningLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            learningLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            learningLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            learningLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
             learningLabel.heightAnchor.constraint(equalToConstant: Constants.textHight),
-            learningLabel.bottomAnchor.constraint(equalTo: emailTextField.topAnchor, constant: -50)
+            learningLabel.bottomAnchor.constraint(equalTo: emailTextField.topAnchor, constant: -30)
             ])
     }
     
@@ -167,14 +200,14 @@ class SignUpView: UIViewController, SignUpViewProtocol {
         signUpLabel.text = Constants.firstLabelText
         signUpLabel.font = UIFont(name: Constants.fontBoldName, size: Constants.fontSizeLabel)
         signUpLabel.textColor = UIColor(named: Constants.projectColor)
-        self.view.addSubview(signUpLabel)
+        contentView.addSubview(signUpLabel)
     }
     
     func setUpSignUpLabelConstraint() {
         signUpLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            signUpLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            signUpLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            signUpLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            signUpLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
             signUpLabel.heightAnchor.constraint(equalToConstant: 100),
             signUpLabel.bottomAnchor.constraint(equalTo: learningLabel.topAnchor)
             ])
@@ -184,13 +217,13 @@ class SignUpView: UIViewController, SignUpViewProtocol {
     func setUpLogoImage() {
         logoImage.image = UIImage(named: Constants.logoName)
         logoImage.contentMode = .scaleAspectFit
-        self.view.addSubview(logoImage)
+        contentView.addSubview(logoImage)
     }
     
     func setUpLogoImageConstraint() {
         logoImage.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            logoImage.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            logoImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
             logoImage.heightAnchor.constraint(equalToConstant: 120),
             logoImage.widthAnchor.constraint(equalToConstant: 120),
             logoImage.bottomAnchor.constraint(equalTo: signUpLabel.topAnchor)
@@ -203,13 +236,13 @@ class SignUpView: UIViewController, SignUpViewProtocol {
         createNewAccountButton.setImage(UIImage(systemName: "arrow.right"), for: .normal)
         createNewAccountButton.tintColor = UIColor(named: Constants.secondProjectColor)
         createNewAccountButton.addTarget(self, action: #selector(createNewAccountButtonDidTap), for: .touchUpInside)
-        self.view.addSubview(createNewAccountButton)
+        contentView.addSubview(createNewAccountButton)
     }
     
     func setUpNextButtonConstraint() {
         createNewAccountButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            createNewAccountButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            createNewAccountButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
             createNewAccountButton.heightAnchor.constraint(equalToConstant: 65),
             createNewAccountButton.widthAnchor.constraint(equalToConstant: 110),
             createNewAccountButton.topAnchor.constraint(equalTo: passwordLine.bottomAnchor, constant: 50)
@@ -222,14 +255,14 @@ class SignUpView: UIViewController, SignUpViewProtocol {
         backButton.titleLabel?.font = UIFont(name: Constants.fontName, size: Constants.fontSizeSecondButton)
         backButton.setTitleColor(UIColor(named: Constants.projectColor), for: .normal)
         backButton.addTarget(self, action: #selector(signUpButtonDidTap), for: .touchUpInside)
-        self.view.addSubview(backButton)
+        contentView.addSubview(backButton)
     }
     
     func setUpBackButtonConstraint() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
-            backButton.topAnchor.constraint(equalTo: createNewAccountButton.bottomAnchor, constant: 50)
+            backButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
+            backButton.topAnchor.constraint(equalTo: createNewAccountButton.bottomAnchor, constant: 30)
             ])
     }
     

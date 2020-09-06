@@ -55,8 +55,18 @@ class LearningView: UIViewController, LearningViewProtocol {
         static let textColor: UIColor = .white
     }
     
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let contentHeight = nextVerb.frame.height + fieldForWriteVerb.frame.height + infinitiveLabel.frame.height + pastSimpleLabel.frame.height + pastPerfectLabel.frame.height + scoreLabel.frame.height + labelOverScore.frame.height + 400
+        scrollView.contentSize = CGSize(width: contentView.frame.width, height: contentHeight)
+        print(contentView.frame.height)
     }
     
     override func viewDidLoad() {
@@ -68,6 +78,8 @@ class LearningView: UIViewController, LearningViewProtocol {
     
     func setUpViews() {
         self.view.backgroundColor = UIColor(named: Constants.secondProjectColor)
+        self.view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         setUpBackButton()
         setupButtons([startGame, nextVerb])
         setupLabels([bestScoreLabel, timerLabel, scoreLabel])
@@ -77,6 +89,8 @@ class LearningView: UIViewController, LearningViewProtocol {
     }
     
     func setUpViewsConstraints() {
+        setUpScrollViewConstraint()
+        setUpScrollContentConstraint()
         setUpBackButtonConstraint()
         setUpStartGameButtonConstraint()
         setUpBestScoreLabelConstraint()
@@ -92,12 +106,32 @@ class LearningView: UIViewController, LearningViewProtocol {
         setUpLabelOverScoreConstraint()
     }
     
+    func setUpScrollViewConstraint() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+        ])
+    }
+    
+    func setUpScrollContentConstraint() {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.heightAnchor.constraint(equalToConstant: 800.0),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+    }
+    
     func setupVerbsLabels(_ labels: [UILabel]) {
         labels.forEach {
             $0.font = UIFont(name: Constants.fontName, size: Constants.fontSizeLarge)
             $0.textColor = UIColor(named: Constants.projectColor)
             $0.isHidden = true
-            self.view.addSubview($0)
+            contentView.addSubview($0)
         }
     }
     
@@ -107,7 +141,7 @@ class LearningView: UIViewController, LearningViewProtocol {
             $0.textColor = Constants.textColor
             $0.textAlignment = .center
             $0.createWhiteBorder()
-            self.view.addSubview($0)
+            contentView.addSubview($0)
         }
         scoreLabel.text = Constants.textScore
         scoreLabel.isHidden = true
@@ -119,7 +153,7 @@ class LearningView: UIViewController, LearningViewProtocol {
             $0.font = UIFont(name: Constants.fontName, size: Constants.fontSizeMedium)
             $0.textColor = Constants.textColor
             $0.textAlignment = .center
-            self.view.addSubview($0)
+            contentView.addSubview($0)
         }
         labelOverBestScore.text = Constants.textBestScoreLabel
         labelOverTime.text = Constants.textTimeLabel
@@ -133,7 +167,7 @@ class LearningView: UIViewController, LearningViewProtocol {
             $0.titleLabel?.font = UIFont(name: Constants.fontName, size: Constants.fontSizeMedium)
             $0.setTitleColor(UIColor(named: Constants.secondProjectColor), for: .normal)
             $0.backgroundColor = UIColor(named: Constants.projectColor)
-            self.view.addSubview($0)
+            contentView.addSubview($0)
         }
         startGame.setTitle(Constants.textStartButton, for: .normal)
         nextVerb.setTitle(Constants.textNextButton, for: .normal)
@@ -154,10 +188,10 @@ class LearningView: UIViewController, LearningViewProtocol {
     func setUpBackButtonConstraint() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            backButton.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
-            backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45),
-            backButton.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 70)
+            backButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            backButton.trailingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            backButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 45),
+            backButton.bottomAnchor.constraint(equalTo: contentView.topAnchor, constant: 70)
             ])
     }
     
@@ -167,8 +201,8 @@ class LearningView: UIViewController, LearningViewProtocol {
         NSLayoutConstraint.activate([
             startGame.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
             startGame.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
-            startGame.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            startGame.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            startGame.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            startGame.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
             ])
     }
     
@@ -178,7 +212,7 @@ class LearningView: UIViewController, LearningViewProtocol {
         NSLayoutConstraint.activate([
             bestScoreLabel.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
             bestScoreLabel.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
-            bestScoreLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            bestScoreLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             bestScoreLabel.bottomAnchor.constraint(equalTo: startGame.topAnchor, constant: -100)
             ])
     }
@@ -189,7 +223,7 @@ class LearningView: UIViewController, LearningViewProtocol {
         NSLayoutConstraint.activate([
             labelOverBestScore.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
             labelOverBestScore.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
-            labelOverBestScore.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            labelOverBestScore.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             labelOverBestScore.bottomAnchor.constraint(equalTo: bestScoreLabel.topAnchor, constant: -20)
             ])
     }
@@ -198,8 +232,8 @@ class LearningView: UIViewController, LearningViewProtocol {
     func setUpPastSimpleLabelConstraint() {
         pastSimpleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pastSimpleLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            pastSimpleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            pastSimpleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            pastSimpleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
             ])
     }
     
@@ -208,7 +242,7 @@ class LearningView: UIViewController, LearningViewProtocol {
         infinitiveLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             infinitiveLabel.bottomAnchor.constraint(equalTo: pastSimpleLabel.topAnchor, constant: -Constants.distanceBetweenElements),
-            infinitiveLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            infinitiveLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
             ])
     }
     
@@ -217,7 +251,7 @@ class LearningView: UIViewController, LearningViewProtocol {
         pastPerfectLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             pastPerfectLabel.topAnchor.constraint(equalTo: pastSimpleLabel.bottomAnchor, constant: Constants.distanceBetweenElements),
-            pastPerfectLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            pastPerfectLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
             ])
     }
     
@@ -238,10 +272,10 @@ class LearningView: UIViewController, LearningViewProtocol {
         fieldForWriteVerb.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             fieldForWriteVerb.topAnchor.constraint(equalTo: pastPerfectLabel.bottomAnchor, constant: 60),
-            fieldForWriteVerb.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            fieldForWriteVerb.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             fieldForWriteVerb.heightAnchor.constraint(equalToConstant: 55),
-            fieldForWriteVerb.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.fieldLeadingMargin),
-            fieldForWriteVerb.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.fieldTrailingMargin)
+            fieldForWriteVerb.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.fieldLeadingMargin),
+            fieldForWriteVerb.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.fieldTrailingMargin)
             ])
     }
     
@@ -251,7 +285,7 @@ class LearningView: UIViewController, LearningViewProtocol {
         NSLayoutConstraint.activate([
             nextVerb.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
             nextVerb.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
-            nextVerb.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            nextVerb.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             nextVerb.topAnchor.constraint(equalTo: fieldForWriteVerb.bottomAnchor, constant: Constants.distanceBetweenElements)
             ])
     }
@@ -262,7 +296,7 @@ class LearningView: UIViewController, LearningViewProtocol {
         NSLayoutConstraint.activate([
             timerLabel.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
             timerLabel.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
-            timerLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -80),
+            timerLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -80),
             timerLabel.bottomAnchor.constraint(equalTo: infinitiveLabel.topAnchor, constant: -60)
             ])
     }
@@ -273,7 +307,7 @@ class LearningView: UIViewController, LearningViewProtocol {
         NSLayoutConstraint.activate([
             scoreLabel.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
             scoreLabel.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
-            scoreLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 80),
+            scoreLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 80),
             scoreLabel.bottomAnchor.constraint(equalTo: infinitiveLabel.topAnchor, constant: -60)
             ])
     }

@@ -4,17 +4,16 @@ import Firebase
 final class SignInPresenter: SignInPresenterProtocol {
     weak var view: SignInViewProtocol?
     
-    func authState(email: String, password: String) -> Bool {
-        var authState: Bool = false
+    func authState(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] (authResult, error) in
             guard self != nil else {
                 return
             }
             guard error == nil else {
+                self?.view?.showAlertFromPresenter()
                 return
             }
-            authState = true
+            self?.view?.openNewVC()
         }
-        return authState
     }
 }

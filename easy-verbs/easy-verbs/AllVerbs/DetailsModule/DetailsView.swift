@@ -31,8 +31,8 @@ class DetailsView: UIViewController, DetailsViewProtocol {
         static let fontBoldName: String = "Roboto-Bold"
         static let fontSizeDescriptionAndButtons: CGFloat = 17.0
         static let fontSizeVerbs: CGFloat = 25.0
-        static let leadingMargin: CGFloat = 40.0
-        static let trailingMargin: CGFloat = -40.0
+        static let leadingMargin: CGFloat = 60.0
+        static let trailingMargin: CGFloat = -60.0
         static let textLeftButton: String = "PRONUN CIATION"
         static let textRightButton: String = "FAVORITES"
         static let buttonWidth: CGFloat = 120.0
@@ -40,6 +40,9 @@ class DetailsView: UIViewController, DetailsViewProtocol {
         static let buttonMargin: CGFloat = -100.0
         static let textColor: UIColor = .white
     }
+    
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -54,8 +57,17 @@ class DetailsView: UIViewController, DetailsViewProtocol {
         presenter.onViewDidLoad()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let contentHeight = stackView.frame.height + descriptionLabel.frame.height + favoritesButton.frame.height + 300
+        scrollView.contentSize = CGSize(width: contentView.frame.width, height: contentHeight)
+        print(contentView.frame.height)
+    }
+    
     func setUpViews() {
         self.view.backgroundColor = UIColor(named: Constants.secondProjectColor)
+        self.view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         setUpBackButton()
         setUpDescriptionLabel()
         setUpStackView()
@@ -64,6 +76,8 @@ class DetailsView: UIViewController, DetailsViewProtocol {
     }
     
     func setUpViewsConstraints() {
+        setUpScrollViewConstraint()
+        setUpScrollContentConstraint()
         setUpBackButtonConstraint()
         setUpDescriptionLabelConstraint()
         setUpStackViewConstraint()
@@ -72,6 +86,26 @@ class DetailsView: UIViewController, DetailsViewProtocol {
         setUpPastPerfectLabelLabelConstraint()
         setUpPronunciationButtonConstraint()
         setUpFavoritesButtonConstraint()
+    }
+    
+    func setUpScrollViewConstraint() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+        ])
+    }
+    
+    func setUpScrollContentConstraint() {
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.heightAnchor.constraint(equalToConstant: 800.0),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
     }
     
     func setupLabels(_ labels: [UILabel]) {
@@ -97,7 +131,7 @@ class DetailsView: UIViewController, DetailsViewProtocol {
             $0.setTitleColor(Constants.textColor, for: .normal)
             $0.titleLabel?.wordWrap()
             $0.createBorderWhiteColor()
-            self.view.addSubview($0)
+            contentView.addSubview($0)
         }
         updateButtons()
     }
@@ -116,16 +150,16 @@ class DetailsView: UIViewController, DetailsViewProtocol {
         backButton.tintColor = UIColor(named: Constants.projectColor)
         backButton.backgroundColor = UIColor(named: Constants.secondProjectColor)
         backButton.addTarget(self, action: #selector(backButtonDidTap), for: .touchUpInside)
-        self.view.addSubview(backButton)
+        contentView.addSubview(backButton)
     }
     
     func setUpBackButtonConstraint() {
         backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            backButton.trailingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 50),
-            backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 45),
-            backButton.bottomAnchor.constraint(equalTo: self.view.topAnchor, constant: 70)
+            backButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            backButton.trailingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 50),
+            backButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 45),
+            backButton.bottomAnchor.constraint(equalTo: contentView.topAnchor, constant: 70)
             ])
     }
     
@@ -136,16 +170,16 @@ class DetailsView: UIViewController, DetailsViewProtocol {
         descriptionLabel.contentMode = .left
         descriptionLabel.text = verbFromDelegate?.description
         descriptionLabel.wordWrap()
-        self.view.addSubview(descriptionLabel)
+        contentView.addSubview(descriptionLabel)
     }
     
     func setUpDescriptionLabelConstraint() {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            descriptionLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
-            descriptionLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
             descriptionLabel.heightAnchor.constraint(equalToConstant: 100),
-            descriptionLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+            descriptionLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
             ])
     }
     
@@ -153,15 +187,15 @@ class DetailsView: UIViewController, DetailsViewProtocol {
     func setUpStackView() {
         stackView.axis = .vertical
         stackView.spacing = 42
-        self.view.addSubview(stackView)
+        contentView.addSubview(stackView)
     }
     
     func setUpStackViewConstraint() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
-            stackView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 120),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
+            stackView.heightAnchor.constraint(equalToConstant: 200.0),
             stackView.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -50)
             ])
     }
@@ -170,8 +204,8 @@ class DetailsView: UIViewController, DetailsViewProtocol {
     func setUpInfinitiveLabelConstraint() {
         infinitiveLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            infinitiveLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
-            infinitiveLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin)
+            infinitiveLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
+            infinitiveLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin)
             ])
     }
     
@@ -179,8 +213,8 @@ class DetailsView: UIViewController, DetailsViewProtocol {
     func setUpPastSimpleLabelLabelConstraint() {
         pastSimpleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pastSimpleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
-            pastSimpleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin)
+            pastSimpleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
+            pastSimpleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin)
             ])
     }
     
@@ -188,8 +222,8 @@ class DetailsView: UIViewController, DetailsViewProtocol {
     func setUpPastPerfectLabelLabelConstraint() {
         pastPerfectLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            pastPerfectLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
-            pastPerfectLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin)
+            pastPerfectLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
+            pastPerfectLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin)
             ])
     }
     
@@ -199,8 +233,8 @@ class DetailsView: UIViewController, DetailsViewProtocol {
         NSLayoutConstraint.activate([
             pronunciationButton.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
             pronunciationButton.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
-            pronunciationButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: Constants.leadingMargin),
-            pronunciationButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
+            pronunciationButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.leadingMargin),
+            pronunciationButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 50)
             ])
     }
     
@@ -210,8 +244,8 @@ class DetailsView: UIViewController, DetailsViewProtocol {
         NSLayoutConstraint.activate([
             favoritesButton.widthAnchor.constraint(equalToConstant: Constants.buttonWidth),
             favoritesButton.heightAnchor.constraint(equalToConstant: Constants.buttonHeight),
-            favoritesButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: Constants.trailingMargin),
-            favoritesButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
+            favoritesButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Constants.trailingMargin),
+            favoritesButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 50)
             ])
     }
     

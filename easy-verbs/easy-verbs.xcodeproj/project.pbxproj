@@ -207,6 +207,8 @@
 		FF4838B7240B42E6008F035D /* shave.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF4837F6240B42E6008F035D /* shave.mp3 */; };
 		FF4838B8240B42E6008F035D /* fly.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF4837F7240B42E6008F035D /* fly.mp3 */; };
 		FF4838B9240B42E6008F035D /* lend.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FF4837F8240B42E6008F035D /* lend.mp3 */; };
+		FF57FBE42505029D001B1A69 /* easy_verbsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF57FBE32505029D001B1A69 /* easy_verbsTests.swift */; };
+		FF57FBEE250503AA001B1A69 /* AllVerbsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF57FBED250503AA001B1A69 /* AllVerbsPresenterTests.swift */; };
 		FF876B7525019C420087C8D6 /* AllVerbsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7125019C420087C8D6 /* AllVerbsProtocols.swift */; };
 		FF876B7625019C420087C8D6 /* AllVerbsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7225019C420087C8D6 /* AllVerbsViewController.swift */; };
 		FF876B7725019C420087C8D6 /* AllVerbsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF876B7325019C420087C8D6 /* AllVerbsPresenter.swift */; };
@@ -241,6 +243,16 @@
 		FFF66FBD23F09A5B005DC191 /* UniqueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF66FBC23F09A5B005DC191 /* UniqueButton.swift */; };
 		FFF66FBF23F09ED5005DC191 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFF66FBE23F09ED5005DC191 /* ButtonTableViewCell.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FF57FBE62505029D001B1A69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FF39FA2D23EB817800EBCD1E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FF39FA3423EB817800EBCD1E;
+			remoteInfo = "easy-verbs";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		C250348C8234D1039BADB005 /* Pods-easy-verbs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easy-verbs.debug.xcconfig"; path = "Target Support Files/Pods-easy-verbs/Pods-easy-verbs.debug.xcconfig"; sourceTree = "<group>"; };
@@ -448,6 +460,10 @@
 		FF4837F6240B42E6008F035D /* shave.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = shave.mp3; sourceTree = "<group>"; };
 		FF4837F7240B42E6008F035D /* fly.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fly.mp3; sourceTree = "<group>"; };
 		FF4837F8240B42E6008F035D /* lend.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lend.mp3; sourceTree = "<group>"; };
+		FF57FBE12505029D001B1A69 /* easy-verbsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "easy-verbsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF57FBE32505029D001B1A69 /* easy_verbsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = easy_verbsTests.swift; sourceTree = "<group>"; };
+		FF57FBE52505029D001B1A69 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF57FBED250503AA001B1A69 /* AllVerbsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllVerbsPresenterTests.swift; sourceTree = "<group>"; };
 		FF876B7125019C420087C8D6 /* AllVerbsProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsProtocols.swift; sourceTree = "<group>"; };
 		FF876B7225019C420087C8D6 /* AllVerbsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsViewController.swift; sourceTree = "<group>"; };
 		FF876B7325019C420087C8D6 /* AllVerbsPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllVerbsPresenter.swift; sourceTree = "<group>"; };
@@ -492,6 +508,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FF57FBDE2505029D001B1A69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -527,6 +550,7 @@
 			isa = PBXGroup;
 			children = (
 				FF39FA3723EB817800EBCD1E /* easy-verbs */,
+				FF57FBE22505029D001B1A69 /* easy-verbsTests */,
 				FF39FA3623EB817800EBCD1E /* Products */,
 				FFA221E072F3D112762ABB02 /* Pods */,
 				BE552B009EB940EB6ABABEB1 /* Frameworks */,
@@ -537,6 +561,7 @@
 			isa = PBXGroup;
 			children = (
 				FF39FA3523EB817800EBCD1E /* easy-verbs.app */,
+				FF57FBE12505029D001B1A69 /* easy-verbsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -773,6 +798,16 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		FF57FBE22505029D001B1A69 /* easy-verbsTests */ = {
+			isa = PBXGroup;
+			children = (
+				FF57FBE32505029D001B1A69 /* easy_verbsTests.swift */,
+				FF57FBED250503AA001B1A69 /* AllVerbsPresenterTests.swift */,
+				FF57FBE52505029D001B1A69 /* Info.plist */,
+			);
+			path = "easy-verbsTests";
+			sourceTree = "<group>";
+		};
 		FF876B7025019C410087C8D6 /* AllVerbsModule */ = {
 			isa = PBXGroup;
 			children = (
@@ -882,18 +917,40 @@
 			productReference = FF39FA3523EB817800EBCD1E /* easy-verbs.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FF57FBE02505029D001B1A69 /* easy-verbsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF57FBE82505029D001B1A69 /* Build configuration list for PBXNativeTarget "easy-verbsTests" */;
+			buildPhases = (
+				FF57FBDD2505029D001B1A69 /* Sources */,
+				FF57FBDE2505029D001B1A69 /* Frameworks */,
+				FF57FBDF2505029D001B1A69 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FF57FBE72505029D001B1A69 /* PBXTargetDependency */,
+			);
+			name = "easy-verbsTests";
+			productName = "easy-verbsTests";
+			productReference = FF57FBE12505029D001B1A69 /* easy-verbsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		FF39FA2D23EB817800EBCD1E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Artemy Podlessky";
 				TargetAttributes = {
 					FF39FA3423EB817800EBCD1E = {
 						CreatedOnToolsVersion = 11.3;
+					};
+					FF57FBE02505029D001B1A69 = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = FF39FA3423EB817800EBCD1E;
 					};
 				};
 			};
@@ -912,6 +969,7 @@
 			projectRoot = "";
 			targets = (
 				FF39FA3423EB817800EBCD1E /* easy-verbs */,
+				FF57FBE02505029D001B1A69 /* easy-verbsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1122,6 +1180,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FF57FBDF2505029D001B1A69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1225,7 +1290,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FF57FBDD2505029D001B1A69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF57FBE42505029D001B1A69 /* easy_verbsTests.swift in Sources */,
+				FF57FBEE250503AA001B1A69 /* AllVerbsPresenterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FF57FBE72505029D001B1A69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FF39FA3423EB817800EBCD1E /* easy-verbs */;
+			targetProxy = FF57FBE62505029D001B1A69 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		FF39FA4323EB817D00EBCD1E /* LaunchScreen.storyboard */ = {
@@ -1394,6 +1476,51 @@
 			};
 			name = Release;
 		};
+		FF57FBE92505029D001B1A69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6JG5NDJFUK;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "easy-verbsTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.podlessky.easy-verbsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/easy-verbs.app/easy-verbs";
+			};
+			name = Debug;
+		};
+		FF57FBEA2505029D001B1A69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6JG5NDJFUK;
+				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = "easy-verbsTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.podlessky.easy-verbsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/easy-verbs.app/easy-verbs";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1411,6 +1538,15 @@
 			buildConfigurations = (
 				FF39FA4A23EB817D00EBCD1E /* Debug */,
 				FF39FA4B23EB817D00EBCD1E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF57FBE82505029D001B1A69 /* Build configuration list for PBXNativeTarget "easy-verbsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF57FBE92505029D001B1A69 /* Debug */,
+				FF57FBEA2505029D001B1A69 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -23,8 +23,8 @@ class ButtonTableViewCell: UITableViewCell {
         static let arrowWidth: CGFloat = 60.0
         static let arrowHight: CGFloat = 45.0
         static let arrowBottomMargin: CGFloat = -10.0
-        static let trailingMargin: CGFloat = -50.0
-        static let leadingMargin: CGFloat = 50.0
+        static let trailingMargin: CGFloat = -18.0
+        static let leadingMargin: CGFloat = 18.0
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -41,11 +41,12 @@ class ButtonTableViewCell: UITableViewCell {
         //MARK: -> Cell Logic
         button.setTitle(newButton.name, for: .normal)
         if newButton.side == 2 {
-            button.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.leadingMargin).isActive = true
+            button.trailingAnchor.constraint(equalTo: self.centerXAnchor, constant: Constants.trailingMargin).isActive = true
+            leftArrow.leadingAnchor.constraint(equalTo: button.leadingAnchor).isActive = true
             button.contentHorizontalAlignment = .left
             rightArrow.isHidden = true
         } else {
-            button.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constants.trailingMargin).isActive = true
+            button.leadingAnchor.constraint(equalTo: self.centerXAnchor, constant: Constants.leadingMargin).isActive = true
             leftArrow.isHidden = true
         }
         nameForSegue = newButton.id
@@ -104,7 +105,7 @@ private extension ButtonTableViewCell {
     func setUpRightArrowConstraint() {
         rightArrow.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            rightArrow.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Constants.trailingMargin),
+            rightArrow.trailingAnchor.constraint(equalTo: button.trailingAnchor),
             rightArrow.widthAnchor.constraint(equalToConstant: Constants.arrowWidth),
             rightArrow.heightAnchor.constraint(equalToConstant: Constants.arrowHight),
             rightArrow.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: Constants.arrowBottomMargin)
@@ -121,7 +122,6 @@ private extension ButtonTableViewCell {
     func setUpLeftArrowConstraint() {
         leftArrow.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            leftArrow.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constants.leadingMargin),
             leftArrow.widthAnchor.constraint(equalToConstant: Constants.arrowWidth),
             leftArrow.heightAnchor.constraint(equalToConstant: Constants.arrowHight),
             leftArrow.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: Constants.arrowBottomMargin)
