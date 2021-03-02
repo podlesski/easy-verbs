@@ -83,7 +83,7 @@ private extension ButtonTableViewCell {
         button.titleLabel?.lineBreakMode = .byWordWrapping
         button.titleLabel?.numberOfLines = 2
         button.addTarget(self, action: #selector(tapOnButton), for: .touchUpInside)
-        self.addSubview(button)
+        self.contentView.addSubview(button)
     }
     
     func setUpButtonConstraint() {

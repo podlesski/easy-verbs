@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BEF763DE5B7D6991F1900EA8 /* Pods_easy_verbsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E9C270571281B6F216C7C2 /* Pods_easy_verbsTests.framework */; };
 		FC41F58D6B770C141A84D8C8 /* Pods_easy_verbs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D53180B65CBCF586A4A2CBB9 /* Pods_easy_verbs.framework */; };
 		FF0A296723FC95C1000A3844 /* IrregularVerb.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF0A296623FC95C1000A3844 /* IrregularVerb.swift */; };
 		FF28E30A2402A29A0004DC26 /* VerbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF28E3092402A29A0004DC26 /* VerbCell.swift */; };
@@ -255,7 +256,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1824F82F530809638428A31D /* Pods-easy-verbsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easy-verbsTests.debug.xcconfig"; path = "Target Support Files/Pods-easy-verbsTests/Pods-easy-verbsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A5E106F50E4D9D39117870D2 /* Pods-easy-verbsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easy-verbsTests.release.xcconfig"; path = "Target Support Files/Pods-easy-verbsTests/Pods-easy-verbsTests.release.xcconfig"; sourceTree = "<group>"; };
 		C250348C8234D1039BADB005 /* Pods-easy-verbs.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easy-verbs.debug.xcconfig"; path = "Target Support Files/Pods-easy-verbs/Pods-easy-verbs.debug.xcconfig"; sourceTree = "<group>"; };
+		C9E9C270571281B6F216C7C2 /* Pods_easy_verbsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_easy_verbsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D53180B65CBCF586A4A2CBB9 /* Pods_easy_verbs.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_easy_verbs.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA8058CBA39A8DD54CF1C886 /* Pods-easy-verbs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-easy-verbs.release.xcconfig"; path = "Target Support Files/Pods-easy-verbs/Pods-easy-verbs.release.xcconfig"; sourceTree = "<group>"; };
 		FF0A296623FC95C1000A3844 /* IrregularVerb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrregularVerb.swift; sourceTree = "<group>"; };
@@ -490,8 +494,8 @@
 		FF9F3609250431D900BF7257 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		FF9F360C250444B600BF7257 /* LearningFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningFactory.swift; sourceTree = "<group>"; };
 		FF9F360E250444E300BF7257 /* LearningProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningProtocols.swift; sourceTree = "<group>"; };
-		FF9F36102504451400BF7257 /* LearningPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningPresenter.swift; sourceTree = "<group>"; };
-		FF9F36122504453500BF7257 /* LearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningView.swift; sourceTree = "<group>"; };
+		FF9F36102504451400BF7257 /* LearningPresenter.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = LearningPresenter.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
+		FF9F36122504453500BF7257 /* LearningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearningView.swift; sourceTree = "<group>"; usesTabs = 0; };
 		FFC4A8CA23ECCA920018521E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FFF66FB623F047A2005DC191 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		FFF66FB823F047B4005DC191 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
@@ -512,6 +516,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEF763DE5B7D6991F1900EA8 /* Pods_easy_verbsTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +528,7 @@
 			children = (
 				FF483735240B40D2008F035D /* AVFoundation.framework */,
 				D53180B65CBCF586A4A2CBB9 /* Pods_easy_verbs.framework */,
+				C9E9C270571281B6F216C7C2 /* Pods_easy_verbsTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -890,6 +896,8 @@
 			children = (
 				C250348C8234D1039BADB005 /* Pods-easy-verbs.debug.xcconfig */,
 				DA8058CBA39A8DD54CF1C886 /* Pods-easy-verbs.release.xcconfig */,
+				1824F82F530809638428A31D /* Pods-easy-verbsTests.debug.xcconfig */,
+				A5E106F50E4D9D39117870D2 /* Pods-easy-verbsTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -921,9 +929,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FF57FBE82505029D001B1A69 /* Build configuration list for PBXNativeTarget "easy-verbsTests" */;
 			buildPhases = (
+				FC5053AF645EBA8B860A94C3 /* [CP] Check Pods Manifest.lock */,
 				FF57FBDD2505029D001B1A69 /* Sources */,
 				FF57FBDE2505029D001B1A69 /* Frameworks */,
 				FF57FBDF2505029D001B1A69 /* Resources */,
+				8CDAB5399738AC2567BB71D7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -942,7 +952,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1230;
 				ORGANIZATIONNAME = "Artemy Podlessky";
 				TargetAttributes = {
 					FF39FA3423EB817800EBCD1E = {
@@ -1207,6 +1217,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-easy-verbs/Pods-easy-verbs-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8CDAB5399738AC2567BB71D7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-easy-verbsTests/Pods-easy-verbsTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-easy-verbsTests/Pods-easy-verbsTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-easy-verbsTests/Pods-easy-verbsTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A26FFC14056218A4390B26B3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1223,6 +1250,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-easy-verbs-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC5053AF645EBA8B860A94C3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-easy-verbsTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1348,6 +1397,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1372,7 +1422,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1409,6 +1459,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1427,7 +1478,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1478,6 +1529,7 @@
 		};
 		FF57FBE92505029D001B1A69 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1824F82F530809638428A31D /* Pods-easy-verbsTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -1501,6 +1553,7 @@
 		};
 		FF57FBEA2505029D001B1A69 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5E106F50E4D9D39117870D2 /* Pods-easy-verbsTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;

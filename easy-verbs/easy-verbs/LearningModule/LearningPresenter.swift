@@ -30,6 +30,7 @@ final class LearningPresenter: LearningPresenterProtocol {
         }
     }
     
+    
     private func bestScoreFromFirebase(){
         guard let user = userID else { return }
         db.collection("users").whereField("uid", isEqualTo: user).getDocuments() { (querySnapshot, err) in

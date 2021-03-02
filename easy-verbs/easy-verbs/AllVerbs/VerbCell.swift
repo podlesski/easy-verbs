@@ -62,7 +62,7 @@ private extension VerbCell {
     }
 
     func setupHierarchy() {
-        addSubview(scrollView)
+        self.contentView.addSubview(scrollView)
         scrollView.addSubview(containerView)
         containerView.addSubview(verbPast)
         containerView.addSubview(verbButton)

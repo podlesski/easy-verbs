@@ -1,0 +1,6 @@
+framework module Pods_easy_verbsTests {
+  umbrella header "Pods-easy-verbsTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
